@@ -1,7 +1,7 @@
 import 'package:elwekala/core/constants/app_routes.dart';
 import 'package:elwekala/core/constants/app_strings.dart';
 import 'package:elwekala/core/widgets/custom_button.dart';
-import 'package:elwekala/features/auth/presentation/widgets/custom_auth_fields.dart';
+import 'package:elwekala/features/auth/presentation/widgets/shared_form_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';

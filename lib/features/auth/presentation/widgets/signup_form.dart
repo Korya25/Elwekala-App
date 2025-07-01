@@ -1,0 +1,154 @@
+import 'dart:io';
+import 'package:elwekala/core/constants/app_routes.dart';
+import 'package:elwekala/core/constants/app_strings.dart';
+import 'package:elwekala/core/widgets/custom_button.dart';
+import 'package:elwekala/features/auth/presentation/widgets/image_field.dart';
+import 'package:elwekala/features/auth/presentation/widgets/shared_form_fields.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+
+class SignupForm extends StatefulWidget {
+  const SignupForm({super.key});
+
+  @override
+  State<SignupForm> createState() => _SignupFormState();
+}
+
+class _SignupFormState extends State<SignupForm> {
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _nationalIdController = TextEditingController();
+
+  String? _selectedGender;
+  File? _selectedImage;
+  bool _isLoading = false;
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _phoneController.dispose();
+    _nationalIdController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = File(pickedFile.path);
+      });
+    }
+  }
+
+  void _handleSignup() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    if (_selectedImage == null || _selectedGender == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please select a profile image and choose your gender'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    setState(() => _isLoading = true);
+    await Future.delayed(const Duration(seconds: 2));
+    if (!mounted) return;
+    setState(() => _isLoading = false);
+    context.go(AppRoutes.profile);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          ProfileImagePicker(image: _selectedImage, onTap: _pickImage),
+          SizedBox(height: 24.h),
+
+          _SignupSharedFormField(
+            nameController: _nameController,
+            emailController: _emailController,
+            passwordController: _passwordController,
+            confirmPasswordController: _confirmPasswordController,
+            phoneController: _phoneController,
+            nationalIdController: _nationalIdController,
+          ),
+
+          SizedBox(height: 16.h),
+
+          GenderSelector(
+            selectedGender: _selectedGender,
+            onChanged: (value) {
+              setState(() {
+                _selectedGender = value;
+              });
+            },
+          ),
+          SizedBox(height: 24.h),
+
+          CustomButton(
+            text: AppStrings.signUp,
+            onPressed: _handleSignup,
+            isLoading: _isLoading,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SignupSharedFormField extends StatelessWidget {
+  final TextEditingController nameController;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final TextEditingController confirmPasswordController;
+  final TextEditingController phoneController;
+  final TextEditingController nationalIdController;
+
+  const _SignupSharedFormField({
+    required this.nameController,
+    required this.emailController,
+    required this.passwordController,
+    required this.confirmPasswordController,
+    required this.phoneController,
+    required this.nationalIdController,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: 16,
+      children: [
+        NameField(controller: nameController),
+
+        EmailField(controller: emailController),
+
+        PasswordField(controller: passwordController),
+
+        ConfirmPasswordField(
+          controller: confirmPasswordController,
+          password: passwordController.text,
+        ),
+
+        PhoneField(controller: phoneController),
+
+        NationalIdField(controller: nationalIdController),
+      ],
+    );
+  }
+}
