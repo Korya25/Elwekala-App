@@ -1,4 +1,3 @@
-
 import 'package:elwekala/core/constants/app_colors.dart';
 import 'package:elwekala/core/constants/app_strings.dart';
 import 'package:elwekala/core/utils/validators.dart';
@@ -43,12 +42,12 @@ class PasswordField extends StatelessWidget {
 
 class ConfirmPasswordField extends StatelessWidget {
   final TextEditingController controller;
-  final String password;
+  final TextEditingController passwordController;
 
   const ConfirmPasswordField({
     super.key,
     required this.controller,
-    required this.password,
+    required this.passwordController,
   });
 
   @override
@@ -57,7 +56,8 @@ class ConfirmPasswordField extends StatelessWidget {
       labelText: AppStrings.confirmPassword,
       hintText: AppStrings.confirmPasswordFieldHint,
       controller: controller,
-      validator: (value) => Validators.validateConfirmPassword(value, password),
+      validator: (value) =>
+          Validators.validateConfirmPassword(value, passwordController.text),
       obscureText: true,
       prefixIcon: Icon(Icons.lock_outline, color: AppColors.iconColor),
     );

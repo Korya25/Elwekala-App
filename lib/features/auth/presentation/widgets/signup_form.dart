@@ -54,10 +54,19 @@ class _SignupFormState extends State<SignupForm> {
   void _handleSignup() async {
     if (!_formKey.currentState!.validate()) return;
 
-    if (_selectedImage == null || _selectedGender == null) {
+    if (_selectedImage == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Please select a profile image and choose your gender'),
+          content: Text('Please select a profile image'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+    if (_selectedGender == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please Choose a gender'),
           backgroundColor: Colors.red,
         ),
       );
@@ -142,7 +151,7 @@ class _SignupSharedFormField extends StatelessWidget {
 
         ConfirmPasswordField(
           controller: confirmPasswordController,
-          password: passwordController.text,
+          passwordController: passwordController,
         ),
 
         PhoneField(controller: phoneController),

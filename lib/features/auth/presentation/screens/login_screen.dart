@@ -14,14 +14,16 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: 24.w,
-            right: 24.w,
-            top: 60.h,
-            bottom: 20.h,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: 24.w,
+              right: 24.w,
+              top: 60.h,
+              bottom: 20.h,
+            ),
+            child: _LoginScreenBody(),
           ),
-          child: _LoginScreenBody(),
         ),
       ),
     );
@@ -41,7 +43,7 @@ class _LoginScreenBody extends StatelessWidget {
           subtitle: AppStrings.loginSubtitle,
         ),
         SizedBox(height: 40.h),
-        const Expanded(child: SingleChildScrollView(child: LoginForm())),
+        LoginForm(),
         SizedBox(height: 20.h),
         AuthFooterAction(
           question: AppStrings.dontHaveAccount,

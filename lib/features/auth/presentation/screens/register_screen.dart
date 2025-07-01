@@ -14,14 +14,16 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: 24.w,
-            right: 24.w,
-            top: 60.h,
-            bottom: 20.h,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: 24.w,
+              right: 24.w,
+              top: 60.h,
+              bottom: 20.h,
+            ),
+            child: _RegisterScreenBody(),
           ),
-          child: _RegisterScreenBody(),
         ),
       ),
     );
@@ -41,7 +43,7 @@ class _RegisterScreenBody extends StatelessWidget {
           subtitle: AppStrings.registerSubtitle,
         ),
         SizedBox(height: 30.h),
-        const Expanded(child: SingleChildScrollView(child: SignupForm())),
+        SignupForm(),
         SizedBox(height: 20.h),
         AuthFooterAction(
           question: AppStrings.alreadyHaveAccount,
