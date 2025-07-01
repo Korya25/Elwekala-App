@@ -1,0 +1,62 @@
+import 'package:elwekala/core/constants/app_strings.dart';
+
+class Validators {
+  static String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return AppStrings.fieldRequired;
+    }
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    if (!emailRegex.hasMatch(value)) {
+      return AppStrings.invalidEmail;
+    }
+    return null;
+  }
+
+  static String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return AppStrings.fieldRequired;
+    }
+    if (value.length < 8) {
+      return AppStrings.passwordTooShort;
+    }
+    return null;
+  }
+
+  static String? validateConfirmPassword(String? value, String password) {
+    if (value == null || value.isEmpty) {
+      return AppStrings.fieldRequired;
+    }
+    if (value != password) {
+      return AppStrings.passwordsNotMatch;
+    }
+    return null;
+  }
+
+  static String? validateRequired(String? value) {
+    if (value == null || value.isEmpty) {
+      return AppStrings.fieldRequired;
+    }
+    return null;
+  }
+
+  static String? validatePhone(String? value) {
+    if (value == null || value.isEmpty) {
+      return AppStrings.fieldRequired;
+    }
+    final phoneRegex = RegExp(r'^\+?[1-9]\d{1,14}$');
+    if (!phoneRegex.hasMatch(value)) {
+      return AppStrings.invalidPhone;
+    }
+    return null;
+  }
+
+  static String? validateNationalId(String? value) {
+    if (value == null || value.isEmpty) {
+      return AppStrings.fieldRequired;
+    }
+    if (value.length < 10) {
+      return AppStrings.invalidNationalId;
+    }
+    return null;
+  }
+}
