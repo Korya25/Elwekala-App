@@ -18,7 +18,6 @@ class CustomTextFormField extends StatefulWidget {
   final VoidCallback? onTap;
   final bool readOnly;
 
-
   const CustomTextFormField({
     super.key,
     this.labelText,
@@ -32,7 +31,8 @@ class CustomTextFormField extends StatefulWidget {
     this.enabled = true,
     this.maxLines = 1,
     this.onTap,
-    this.readOnly = false, this.inputFormatters,
+    this.readOnly = false,
+    this.inputFormatters,
   });
 
   @override
@@ -65,7 +65,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           ),
         ],
         TextFormField(
-          inputFormatters:widget.inputFormatters ,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          inputFormatters: widget.inputFormatters,
           controller: widget.controller,
           validator: widget.validator,
           obscureText: _obscureText,
