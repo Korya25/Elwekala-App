@@ -58,6 +58,8 @@ class AppStrings {
   static const String passwordsNotMatch = 'Passwords do not match';
   static const String invalidPhone = 'Please enter a valid phone number';
   static const String invalidNationalId = 'Please enter a valid national ID';
+  static const String nationalIdLengthError =
+      'National ID must be exactly 14 digits';
 
   // -------------------- Dialog Messages --------------------
   static const String errorSelectGender = 'Please choose a gender';
