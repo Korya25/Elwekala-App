@@ -1,5 +1,4 @@
 class AppStrings {
-
   // -------------------- Common --------------------
   static const String email = 'Email';
   static const String password = 'Password';
@@ -35,7 +34,8 @@ class AppStrings {
   // -------------------- Register --------------------
   static const String register = 'Register';
   static const String createAccount = 'Create Account';
-  static const String registerSubtitle = 'Please fill in the details to create your account';
+  static const String registerSubtitle =
+      'Please fill in the details to create your account';
   static const String alreadyHaveAccount = 'Already have an account?';
 
   // -------------------- Profile --------------------
@@ -53,8 +53,13 @@ class AppStrings {
   // -------------------- Validation --------------------
   static const String fieldRequired = 'This field is required';
   static const String invalidEmail = 'Please enter a valid email';
-  static const String passwordTooShort = 'Password must be at least 8 characters';
+  static const String passwordTooShort =
+      'Password must be at least 8 characters';
   static const String passwordsNotMatch = 'Passwords do not match';
   static const String invalidPhone = 'Please enter a valid phone number';
   static const String invalidNationalId = 'Please enter a valid national ID';
+
+  // -------------------- Dialog Messages --------------------
+  static const String errorSelectGender = 'Please choose a gender';
+  static const String errorSelectImage = 'Please select a profile image';
 }

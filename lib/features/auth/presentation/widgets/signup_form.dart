@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:elwekala/core/constants/app_routes.dart';
 import 'package:elwekala/core/constants/app_strings.dart';
+import 'package:elwekala/core/utils/app_dialogs.dart';
 import 'package:elwekala/core/widgets/custom_button.dart';
 import 'package:elwekala/features/auth/presentation/widgets/image_field.dart';
 import 'package:elwekala/features/auth/presentation/widgets/shared_form_fields.dart';
@@ -51,34 +52,26 @@ class _SignupFormState extends State<SignupForm> {
     }
   }
 
-  void _handleSignup() async {
-    if (!_formKey.currentState!.validate()) return;
+void _handleSignup() async {
+  if (!_formKey.currentState!.validate()) return;
 
-    if (_selectedImage == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please select a profile image'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    }
-    if (_selectedGender == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please Choose a gender'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    }
-
-    setState(() => _isLoading = true);
-    await Future.delayed(const Duration(seconds: 2));
-    if (!mounted) return;
-    setState(() => _isLoading = false);
-    context.go(AppRoutes.profile);
+  if (_selectedGender == null) {
+    AppDialogs.showError(context, AppStrings.errorSelectGender);
+    return;
   }
+
+  if (_selectedImage == null) {
+    AppDialogs.showError(context, AppStrings.errorSelectImage);
+    return;
+  }
+
+  setState(() => _isLoading = true);
+  await Future.delayed(const Duration(seconds: 2));
+  if (!mounted) return;
+  setState(() => _isLoading = false);
+
+  context.go(AppRoutes.profile);
+}
 
   @override
   Widget build(BuildContext context) {
