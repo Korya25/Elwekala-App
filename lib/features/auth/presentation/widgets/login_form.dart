@@ -53,7 +53,7 @@ class _LoginFormState extends State<LoginForm> {
           EmailField(controller: _emailController),
           SizedBox(height: 20.h),
           PasswordField(controller: _passwordController),
-          SizedBox(height: 12.h),
+          SizedBox(height: 24.h),
           CustomButton(
             text: AppStrings.login,
             onPressed: _handleLogin,

@@ -1,15 +1,17 @@
 import 'package:elwekala/core/constants/app_routes.dart';
+import 'package:elwekala/features/auth/presentation/screens/login_screen.dart';
+import 'package:elwekala/features/auth/presentation/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.productDetail,
+    initialLocation: AppRoutes.login,
     routes: [
-      GoRoute(path: AppRoutes.login, builder: (context, state) => Scaffold()),
+      GoRoute(path: AppRoutes.login, builder: (context, state) => LoginScreen()),
       GoRoute(
         path: AppRoutes.register,
-        builder: (context, state) => Scaffold(),
+        builder: (context, state) => RegisterScreen(),
       ),
       GoRoute(path: AppRoutes.profile, builder: (context, state) => Scaffold()),
       GoRoute(path: AppRoutes.home, builder: (context, state) => Scaffold()),
