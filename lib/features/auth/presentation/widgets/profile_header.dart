@@ -2,7 +2,7 @@ import 'package:elwekala/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class c extends StatelessWidget {
+class ProfileHeader extends StatelessWidget {
   final VoidCallback? onEditPressed;
 
   const ProfileHeader({super.key, this.onEditPressed});

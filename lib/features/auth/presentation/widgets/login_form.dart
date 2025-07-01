@@ -40,7 +40,7 @@ class _LoginFormState extends State<LoginForm> {
         _isLoading = false;
       });
 
-      context.go(AppRoutes.home);
+      context.go(AppRoutes.profile);
     }
   }
 
