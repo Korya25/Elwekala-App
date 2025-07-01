@@ -59,7 +59,7 @@ class ProfileHeaderSection extends StatelessWidget {
                     builder: (context) => EditProfileDialog(),
                   );
                 },
-                icon: Icon(FontAwesomeIcons.edit),
+                icon: Icon(FontAwesomeIcons.penToSquare),
               ),
             ],
           ),
