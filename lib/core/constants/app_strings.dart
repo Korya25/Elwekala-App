@@ -21,6 +21,9 @@ class AppStrings {
   static const String dontHaveAccount = "Don't have an account?";
   static const String signUp = 'Sign Up';
 
+  static const String passwordFieldHint = 'Enter your password';
+  static const String emailFieldHint = 'Enter your email';
+
   // Register
   static const String register = 'Register';
   static const String createAccount = 'Create Account';
