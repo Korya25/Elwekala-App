@@ -1,22 +1,25 @@
 import 'package:elwekala/core/constants/app_colors.dart';
 import 'package:elwekala/core/constants/app_strings.dart';
+import 'package:elwekala/features/profile/widgets/circular_network_image.dart';
+import 'package:elwekala/features/profile/widgets/edit_profile_dialog.dart';
 import 'package:elwekala/features/profile/widgets/profile_title_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfileHeaderSection extends StatelessWidget {
-  final VoidCallback? onEditPressed;
-
-  const ProfileHeaderSection({super.key, this.onEditPressed});
+  const ProfileHeaderSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: 16.h,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // title
         ProfileTitleSection(title: AppStrings.profile),
 
-        SizedBox(height: 16),
+        // card
         Container(
           padding: EdgeInsets.all(20.w),
           decoration: BoxDecoration(
@@ -33,75 +36,62 @@ class ProfileHeaderSection extends StatelessWidget {
           child: Row(
             children: [
               // Profile Image
-              Container(
-                width: 60.w,
-                height: 60.h,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.borderColor, width: 2),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30.r),
-                  child: Image.network(
+              const CircularNetworkImage(
+                imageUrl:
                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzr9uph9Hige96UHRV93yDK8rSFMRXwvy96Q&s',
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: AppColors.secondaryColor,
-                        child: Icon(
-                          Icons.person,
-                          size: 30.sp,
-                          color: AppColors.iconColor,
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                size: 50,
               ),
+
               SizedBox(width: 16.w),
 
               // Profile Info
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Yassmine D. gold',
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.primaryTextColor,
-                      ),
-                    ),
-                    SizedBox(height: 4.h),
-                    Text(
-                      'Dream big, hustle harder.',
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: AppColors.secondaryTextColor,
-                      ),
-                    ),
-                  ],
+                child: _ProfileHeaderInfo(
+                  name: 'Mahmoud Mohammed',
+                  bio: 'FEEL THE PAIN',
                 ),
               ),
-
-              // QR Code
+              // Edit Icon
               IconButton(
-                onPressed: onEditPressed,
-                icon: Container(
-                  padding: EdgeInsets.all(8.w),
-                  decoration: BoxDecoration(
-                    color: AppColors.secondaryColor,
-                    borderRadius: BorderRadius.circular(8.r),
-                  ),
-                  child: Icon(
-                    Icons.qr_code,
-                    size: 20.sp,
-                    color: AppColors.primaryTextColor,
-                  ),
-                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => EditProfileDialog(),
+                  );
+                },
+                icon: Icon(FontAwesomeIcons.edit),
               ),
             ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ProfileHeaderInfo extends StatelessWidget {
+  const _ProfileHeaderInfo({required this.name, required this.bio});
+  final String name;
+  final String bio;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          name,
+          maxLines: 1,
+          style: TextStyle(
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w600,
+            color: AppColors.primaryTextColor,
+          ),
+        ),
+        Text(
+          bio,
+          style: TextStyle(
+            fontSize: 12.sp,
+            color: AppColors.secondaryTextColor,
           ),
         ),
       ],

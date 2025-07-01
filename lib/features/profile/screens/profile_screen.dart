@@ -1,5 +1,4 @@
 import 'package:elwekala/core/constants/app_strings.dart';
-import 'package:elwekala/features/profile/widgets/edit_profile_dialog.dart';
 import 'package:elwekala/features/profile/widgets/profile_account_section.dart';
 import 'package:elwekala/features/profile/widgets/profile_header.dart';
 import 'package:elwekala/features/profile/widgets/profile_settings_section.dart';
@@ -14,6 +13,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
+          padding: EdgeInsets.only(left: 24.w),
           onPressed: () {
             //context.pop();
           },
@@ -25,7 +25,7 @@ class ProfileScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(24.w),
-            child: ProfileScreenBody(),
+            child: _ProfileScreenBody(),
           ),
         ),
       ),
@@ -33,8 +33,8 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-class ProfileScreenBody extends StatelessWidget {
-  const ProfileScreenBody({super.key});
+class _ProfileScreenBody extends StatelessWidget {
+  const _ProfileScreenBody();
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +43,7 @@ class ProfileScreenBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Profile Header Section
-        ProfileHeaderSection(
-          onEditPressed: () {
-            _showEditProfileDialog(context);
-          },
-        ),
+        ProfileHeaderSection(),
 
         // Account Section
         ProfileAccountSection(),
@@ -57,9 +53,4 @@ class ProfileScreenBody extends StatelessWidget {
       ],
     );
   }
-
-  void _showEditProfileDialog(BuildContext context) {
-    showDialog(context: context, builder: (context) => EditProfileDialog());
-  }
 }
-
