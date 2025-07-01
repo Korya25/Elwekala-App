@@ -44,9 +44,7 @@ class Validators {
       return AppStrings.fieldRequired;
     }
 
-   
-    final phoneRegex = RegExp(r'^01[0125][0-9]{8}$');
-    if (!phoneRegex.hasMatch(value)) {
+    if (value.length < 11) {
       return AppStrings.invalidPhone;
     }
     return null;
@@ -58,8 +56,7 @@ class Validators {
     }
 
     if (value.length < 14) {
-      return  AppStrings.nationalIdLengthError;
-
+      return AppStrings.nationalIdLengthError;
     }
 
     if (!RegExp(r'^\d{14}$').hasMatch(value)) {

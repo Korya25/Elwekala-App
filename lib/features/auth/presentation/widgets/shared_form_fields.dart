@@ -3,6 +3,7 @@ import 'package:elwekala/core/constants/app_strings.dart';
 import 'package:elwekala/core/utils/validators.dart';
 import 'package:elwekala/core/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class EmailField extends StatelessWidget {
   final TextEditingController controller;
@@ -84,8 +85,12 @@ class NameField extends StatelessWidget {
 class PhoneField extends StatelessWidget {
   final TextEditingController controller;
 
-  const PhoneField({super.key, required this.controller});
+  PhoneField({super.key, required this.controller});
 
+  final _phoneFormatter = MaskTextInputFormatter(
+    mask: '+## (###) ###-####',
+    filter: {"#": RegExp(r'[0-9]')},
+  );
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
@@ -94,6 +99,7 @@ class PhoneField extends StatelessWidget {
       controller: controller,
       validator: Validators.validatePhone,
       keyboardType: TextInputType.phone,
+      inputFormatters: [_phoneFormatter],
       prefixIcon: Icon(Icons.phone_outlined, color: AppColors.iconColor),
     );
   }
@@ -102,8 +108,11 @@ class PhoneField extends StatelessWidget {
 class NationalIdField extends StatelessWidget {
   final TextEditingController controller;
 
-  const NationalIdField({super.key, required this.controller});
-
+  NationalIdField({super.key, required this.controller});
+  final _idFormatter = MaskTextInputFormatter(
+    mask: '# ## ## ## ## ### ##',
+    filter: {'#': RegExp(r'[0-9]')},
+  );
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
@@ -112,6 +121,7 @@ class NationalIdField extends StatelessWidget {
       controller: controller,
       validator: Validators.validateNationalId,
       keyboardType: TextInputType.number,
+      inputFormatters: [_idFormatter],
       prefixIcon: Icon(Icons.badge_outlined, color: AppColors.iconColor),
     );
   }

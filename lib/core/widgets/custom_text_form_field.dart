@@ -1,5 +1,6 @@
 import 'package:elwekala/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextFormField extends StatefulWidget {
@@ -7,6 +8,7 @@ class CustomTextFormField extends StatefulWidget {
   final String? hintText;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final List<TextInputFormatter>? inputFormatters;
   final bool obscureText;
   final TextInputType? keyboardType;
   final Widget? prefixIcon;
@@ -15,6 +17,7 @@ class CustomTextFormField extends StatefulWidget {
   final int? maxLines;
   final VoidCallback? onTap;
   final bool readOnly;
+
 
   const CustomTextFormField({
     super.key,
@@ -29,7 +32,7 @@ class CustomTextFormField extends StatefulWidget {
     this.enabled = true,
     this.maxLines = 1,
     this.onTap,
-    this.readOnly = false,
+    this.readOnly = false, this.inputFormatters,
   });
 
   @override
@@ -62,6 +65,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           ),
         ],
         TextFormField(
+          inputFormatters:widget.inputFormatters ,
           controller: widget.controller,
           validator: widget.validator,
           obscureText: _obscureText,
