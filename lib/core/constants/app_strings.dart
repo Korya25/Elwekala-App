@@ -1,0 +1,53 @@
+class AppStrings {
+  // Common
+  static const String appName = 'Auth App';
+  static const String email = 'Email';
+  static const String password = 'Password';
+  static const String name = 'Name';
+  static const String phone = 'Phone Number';
+  static const String nationalId = 'National ID';
+  static const String gender = 'Gender';
+  static const String male = 'Male';
+  static const String female = 'Female';
+  static const String save = 'Save';
+  static const String cancel = 'Cancel';
+  static const String edit = 'Edit';
+
+  // Login
+  static const String login = 'Login';
+  static const String loginWelcomeBack = 'Welcome back!';
+  static const String loginSubtitle = 'Please sign in to your account';
+  static const String forgotPassword = 'Forgot Password?';
+  static const String dontHaveAccount = "Don't have an account?";
+  static const String signUp = 'Sign Up';
+
+  // Register
+  static const String register = 'Register';
+  static const String createAccount = 'Create Account';
+  static const String registerSubtitle =
+      'Please fill in the details to create your account';
+  static const String alreadyHaveAccount = 'Already have an account?';
+  static const String confirmPassword = 'Confirm Password';
+
+  // Profile
+  static const String profile = 'Profile';
+  static const String generalSettings = 'General settings';
+  static const String account = 'Account';
+  static const String settings = 'Settings';
+  static const String twoStepVerification = '2-Step Verification';
+  static const String passcode = 'Passcode';
+  static const String emailAddress = 'Email address';
+  static const String privacy = 'Privacy';
+  static const String matching = 'Matching';
+  static const String logOut = 'Log out';
+  static const String phoneNumber = 'Phone number';
+
+  // Validation
+  static const String fieldRequired = 'This field is required';
+  static const String invalidEmail = 'Please enter a valid email';
+  static const String passwordTooShort =
+      'Password must be at least 8 characters';
+  static const String passwordsNotMatch = 'Passwords do not match';
+  static const String invalidPhone = 'Please enter a valid phone number';
+  static const String invalidNationalId = 'Please enter a valid national ID';
+}
