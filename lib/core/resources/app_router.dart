@@ -1,6 +1,6 @@
 import 'package:elwekala/core/constants/app_routes.dart';
 import 'package:elwekala/features/auth/presentation/screens/login_screen.dart';
-import 'package:elwekala/features/auth/presentation/screens/profile_screen.dart';
+import 'package:elwekala/features/profile/screens/profile_screen.dart';
 import 'package:elwekala/features/auth/presentation/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
