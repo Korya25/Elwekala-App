@@ -16,4 +16,31 @@ class AuthCubit extends Cubit<AuthState> {
       (user) => emit(AuthSuccess(user: user)),
     );
   }
+
+  void register({
+    required String name,
+    required String email,
+    required String phone,
+    required String nationalId,
+    required String gender,
+    required String password,
+    required String profileImage,
+  }) async {
+    emit(AuthLoading());
+
+    final result = await authUseCase.register(
+      name: name,
+      email: email,
+      phone: phone,
+      nationalId: nationalId,
+      gender: gender,
+      password: password,
+      profileImage: profileImage,
+    );
+
+    result.fold(
+      (errorMessage) => emit(AuthFailure(message: errorMessage)),
+      (user) => emit(AuthSuccess(user: user)),
+    );
+  }
 }

@@ -38,7 +38,7 @@ class LoginButton extends StatelessWidget {
             if (formKey.currentState!.validate()) {
               context.read<AuthCubit>().login(
                 email: emailController.text.trim(),
-                password: passwordController.text,
+                password: passwordController.text.trim(),
               );
             }
           },

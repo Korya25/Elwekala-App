@@ -1,13 +1,9 @@
 import 'dart:io';
-import 'package:elwekala/core/constants/app_routes.dart';
-import 'package:elwekala/core/constants/app_strings.dart';
-import 'package:elwekala/core/utils/app_dialogs.dart';
-import 'package:elwekala/core/widgets/custom_button.dart';
 import 'package:elwekala/features/auth/presentation/widgets/image_field.dart';
+import 'package:elwekala/features/auth/presentation/widgets/register_button.dart';
 import 'package:elwekala/features/auth/presentation/widgets/shared_form_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SignupForm extends StatefulWidget {
@@ -28,7 +24,6 @@ class _SignupFormState extends State<SignupForm> {
 
   String? _selectedGender;
   File? _selectedImage;
-  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -51,27 +46,6 @@ class _SignupFormState extends State<SignupForm> {
       });
     }
   }
-
-void _handleSignup() async {
-  if (!_formKey.currentState!.validate()) return;
-
-  if (_selectedGender == null) {
-    AppDialogs.showError(context, AppStrings.errorSelectGender);
-    return;
-  }
-
-  if (_selectedImage == null) {
-    AppDialogs.showError(context, AppStrings.errorSelectImage);
-    return;
-  }
-
-  setState(() => _isLoading = true);
-  await Future.delayed(const Duration(seconds: 2));
-  if (!mounted) return;
-  setState(() => _isLoading = false);
-
-  context.go(AppRoutes.profile);
-}
 
   @override
   Widget build(BuildContext context) {
@@ -103,10 +77,15 @@ void _handleSignup() async {
           ),
           SizedBox(height: 24.h),
 
-          CustomButton(
-            text: AppStrings.signUp,
-            onPressed: _handleSignup,
-            isLoading: _isLoading,
+          RegisterButton(
+            formKey: _formKey,
+            nameController: _nameController,
+            emailController: _emailController,
+            passwordController: _passwordController,
+            phoneController: _phoneController,
+            nationalIdController: _nationalIdController,
+            selectedGender: _selectedGender,
+            selectedImage: _selectedImage,
           ),
         ],
       ),

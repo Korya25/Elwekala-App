@@ -7,8 +7,8 @@ class AppStrings {
   static const String phone = 'Phone Number';
   static const String nationalId = 'National ID';
   static const String gender = 'Gender';
-  static const String male = 'Male';
-  static const String female = 'Female';
+  static const String male = 'male';
+  static const String female = 'female';
 
   static const String save = 'Save';
   static const String cancel = 'Cancel';
@@ -60,7 +60,10 @@ class AppStrings {
   static const String invalidNationalId = 'Please enter a valid national ID';
   static const String nationalIdLengthError =
       'National ID must be exactly 14 digits';
-
+  static const String phoneMustStartWith01 = 'Phone number must start with 01';
+  static const String phoneMustBe11Digits =
+      'Phone number must be exactly 11 digits';
+  static const String phoneDigitsOnly = 'Phone number must contain digits only';
   // -------------------- Dialog Messages --------------------
   static const String errorSelectGender = 'Please choose a gender';
   static const String errorSelectImage = 'Please select a profile image';

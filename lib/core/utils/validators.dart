@@ -44,9 +44,18 @@ class Validators {
       return AppStrings.fieldRequired;
     }
 
-    if (value.length < 11) {
-      return AppStrings.invalidPhone;
+    if (!value.startsWith('01')) {
+      return AppStrings.phoneMustStartWith01;
     }
+
+    if (value.length != 11) {
+      return AppStrings.phoneMustBe11Digits;
+    }
+
+    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+      return AppStrings.phoneDigitsOnly;
+    }
+
     return null;
   }
 
