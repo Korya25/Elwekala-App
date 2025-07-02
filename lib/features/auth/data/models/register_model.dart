@@ -1,4 +1,5 @@
 import 'package:elwekala/core/api/end_points.dart';
+import 'package:elwekala/features/auth/domain/entities/user_entity.dart';
 
 class RegisterModel {
   final String status;
@@ -28,23 +29,16 @@ class RegisterModel {
   }
 }
 
-class RegisterUserModel {
-  final String name;
-  final String email;
-  final String phone;
-  final String nationalId;
-  final String gender;
-  final String profileImage;
-  final String token;
-
+class RegisterUserModel extends UserEntity{
+ 
   RegisterUserModel({
-    required this.name,
-    required this.email,
-    required this.phone,
-    required this.nationalId,
-    required this.gender,
-    required this.profileImage,
-    required this.token,
+    required super.name,
+    required super.email,
+    required super.phone,
+    required super.nationalId,
+    required super.gender,
+    required super.profileImage,
+    required super.token,
   });
 
   factory RegisterUserModel.fromJson(Map<String, dynamic> json) {

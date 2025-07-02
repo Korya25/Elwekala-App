@@ -23,6 +23,31 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(e.errorModel.message);
     }
   }
-  
-  
+
+  @override
+  Future<Either<String, UserEntity>> register({
+    required String name,
+    required String email,
+    required String phone,
+    required String nationalId,
+    required String gender,
+    required String password,
+    required String profileImage,
+  }) async {
+    try {
+      final model = await remoteDataSource.register(
+        name: name,
+        email: email,
+        phone: phone,
+        nationalId: nationalId,
+        gender: gender,
+        password: password,
+        profileImage: profileImage,
+      );
+
+      return Right(model.user);
+    }  on ServerException catch (e) {
+      return Left(e.errorModel.message);
+    }
+  }
 }
