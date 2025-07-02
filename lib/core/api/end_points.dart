@@ -3,6 +3,7 @@ class EndPoints {
 
   // Auth
   static const String login = '/user/login';
+  static const String register = '/user/register';
 }
 
 class ApiKeys {
@@ -18,5 +19,4 @@ class ApiKeys {
   static const token = 'token';
   static const success = 'success';
   static const password = 'password';
-
 }
