@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:elwekala/core/api/api_consumer.dart';
 import 'package:elwekala/core/api/api_interpreter.dart';
 import 'package:elwekala/core/api/end_points.dart';
+import 'package:elwekala/core/errors/error_model.dart';
 import 'package:elwekala/core/errors/exceptions.dart';
 import 'package:elwekala/features/auth/data/models/login_model.dart';
 
@@ -34,6 +35,13 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     } on DioException catch (e) {
       handleDioException(e);
       rethrow;
+    } catch (e) {
+      throw ServerException(
+        errorModel: ErrorModel(
+          status: 200,
+          message: e.toString().replaceAll('Exception: ', ''),
+        ),
+      );
     }
   }
 }

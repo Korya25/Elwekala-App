@@ -17,6 +17,7 @@ class AppBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
+    // ignore: deprecated_member_use
     logger.v('Change in ${bloc.runtimeType}: $change');
   }
 
