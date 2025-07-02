@@ -5,7 +5,7 @@ import 'package:elwekala/features/auth/domain/repositories/auth_repository.dart'
 class LoginUsecase {
   final AuthRepository repository;
 
-  LoginUsecase({required this.repository});
+  LoginUsecase( this.repository);
 
   // login method
   Future<Either<String, UserEntity>> call({
