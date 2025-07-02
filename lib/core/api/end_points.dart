@@ -17,4 +17,6 @@ class ApiKeys {
   static const profileImage = 'profileImage';
   static const token = 'token';
   static const success = 'success';
+  static const password = 'password';
+
 }
