@@ -4,7 +4,7 @@ import 'package:elwekala/core/api/dio_consumer.dart';
 import 'package:elwekala/features/auth/data/dataSources/auth_remote_data_source.dart';
 import 'package:elwekala/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:elwekala/features/auth/domain/repositories/auth_repository.dart';
-import 'package:elwekala/features/auth/domain/usecases/login_usecase.dart';
+import 'package:elwekala/features/auth/domain/usecases/auth_use_case.dart';
 import 'package:elwekala/features/auth/presentation/controllers/auth_cubit.dart';
 import 'package:get_it/get_it.dart';
 

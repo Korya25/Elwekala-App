@@ -40,7 +40,7 @@ class RegisterButton extends StatelessWidget {
         if (state is AuthFailure) {
           AppDialogs.showError(context, state.message);
         } else if (state is AuthSuccess) {
-          context.go(AppRoutes.profile);
+          context.go(AppRoutes.profile, extra: state.user);
         }
       },
       builder: (context, state) {
@@ -64,39 +64,35 @@ class RegisterButton extends StatelessWidget {
       },
     );
   }
+
   bool _isFormCompletelyValid(BuildContext context) {
-  if (!formKey.currentState!.validate()) return false;
+    if (!formKey.currentState!.validate()) return false;
 
-  // List of required controllers
-  final controllers = [
-    nameController,
-    emailController,
-    phoneController,
-    nationalIdController,
-    passwordController,
-  ];
+    final controllers = [
+      nameController,
+      emailController,
+      phoneController,
+      nationalIdController,
+      passwordController,
+    ];
 
-  // Check for empty text fields
-  for (var controller in controllers) {
-    if (controller.text.trim().isEmpty) {
-      AppDialogs.showError(context, AppStrings.fieldRequired);
+    for (var controller in controllers) {
+      if (controller.text.trim().isEmpty) {
+        AppDialogs.showError(context, AppStrings.fieldRequired);
+        return false;
+      }
+    }
+
+    if (selectedGender == null) {
+      AppDialogs.showError(context, AppStrings.errorSelectGender);
       return false;
     }
+
+    if (selectedImage == null) {
+      AppDialogs.showError(context, AppStrings.errorSelectImage);
+      return false;
+    }
+
+    return true;
   }
-
-  // Check gender
-  if (selectedGender == null) {
-    AppDialogs.showError(context, AppStrings.errorSelectGender);
-    return false;
-  }
-
-  // Check image
-  if (selectedImage == null) {
-    AppDialogs.showError(context, AppStrings.errorSelectImage);
-    return false;
-  }
-
-  return true;
-}
-
 }

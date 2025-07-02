@@ -90,7 +90,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       rethrow;
     } catch (e) {
       throw ServerException(
-        errorModel: ErrorModel(status: 200, message: e.toString()),
+        errorModel: ErrorModel(
+          status: 200,
+          message: e.toString().replaceAll('Exception: ', ''),
+        ),
       );
     }
   }

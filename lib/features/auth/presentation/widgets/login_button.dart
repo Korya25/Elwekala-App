@@ -27,7 +27,7 @@ class LoginButton extends StatelessWidget {
         if (state is AuthFailure) {
           AppDialogs.showError(context, state.message);
         } else if (state is AuthSuccess) {
-          context.go(AppRoutes.profile);
+          context.go(AppRoutes.profile,extra: state.user);
         }
       },
       builder: (context, state) {

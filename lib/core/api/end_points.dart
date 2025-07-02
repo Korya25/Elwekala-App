@@ -9,6 +9,7 @@ class EndPoints {
 class ApiKeys {
   static const status = 'status';
   static const message = 'message';
+
   static const user = 'user';
   static const name = 'name';
   static const email = 'email';
@@ -18,6 +19,7 @@ class ApiKeys {
   static const profileImage = 'profileImage';
   static const token = 'token';
   static const success = 'success';
+  static const error = 'error';
   static const password = 'password';
 
 

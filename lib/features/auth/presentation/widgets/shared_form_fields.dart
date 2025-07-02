@@ -86,11 +86,11 @@ class PhoneField extends StatelessWidget {
   final TextEditingController controller;
 
   PhoneField({super.key, required this.controller});
-  /*
+
   final _phoneFormatter = MaskTextInputFormatter(
-    mask: '## (###) ###-####',
+    mask: '###########',
     filter: {"#": RegExp(r'[0-9]')},
-  );*/
+  );
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
@@ -99,7 +99,7 @@ class PhoneField extends StatelessWidget {
       controller: controller,
       validator: Validators.validatePhone,
       keyboardType: TextInputType.phone,
-      // inputFormatters: [_phoneFormatter],
+      inputFormatters: [_phoneFormatter],
       prefixIcon: Icon(Icons.phone_outlined, color: AppColors.iconColor),
     );
   }
