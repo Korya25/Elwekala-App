@@ -23,4 +23,6 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(e.errorModel.message);
     }
   }
+  
+  
 }

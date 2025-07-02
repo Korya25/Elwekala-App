@@ -28,7 +28,7 @@ Future<void> init() async {
   );
 
   // UseCases
-  sl.registerLazySingleton(() => LoginUsecase(sl()));
+  sl.registerLazySingleton(() => AuthUseCase(sl()));
 
   // Cubit
   sl.registerFactory(() => AuthCubit(sl()));

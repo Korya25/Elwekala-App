@@ -2,16 +2,36 @@ import 'package:dartz/dartz.dart';
 import 'package:elwekala/features/auth/domain/entities/user_entity.dart';
 import 'package:elwekala/features/auth/domain/repositories/auth_repository.dart';
 
-class LoginUsecase {
+class AuthUseCase {
   final AuthRepository repository;
 
-  LoginUsecase( this.repository);
+  AuthUseCase(this.repository);
 
   // login method
-  Future<Either<String, UserEntity>> call({
+  Future<Either<String, UserEntity>> login({
     required String email,
     required String password,
   }) {
     return repository.login(email: email, password: password);
+  }
+
+  Future<Either<String, UserEntity>> register({
+    required String name,
+    required String email,
+    required String phone,
+    required String nationalId,
+    required String gender,
+    required String password,
+    required String profileImage,
+  }) async {
+    return repository.register(
+      name: name,
+      email: email,
+      phone: phone,
+      nationalId: nationalId,
+      gender: gender,
+      password: password,
+      profileImage: profileImage,
+    );
   }
 }
