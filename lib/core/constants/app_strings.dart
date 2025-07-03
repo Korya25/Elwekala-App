@@ -72,4 +72,5 @@ class AppStrings {
 
   // -------------------- Home --------------------
   static const String searchHint = 'Search for laptops...';
+  static const String  inStock = 'In Stock';
 }
