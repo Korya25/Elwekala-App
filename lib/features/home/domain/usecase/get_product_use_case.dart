@@ -5,7 +5,7 @@ import 'package:elwekala/features/home/domain/repos/get_product_repository.dart'
 class GetProductUseCase {
   final GetProductRepository repository;
 
-  GetProductUseCase({required this.repository});
+  GetProductUseCase( this.repository);
 
   // get laptop product
   Future<Either<String, List<Product>>> getLaptops() {

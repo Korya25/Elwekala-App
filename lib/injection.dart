@@ -6,6 +6,11 @@ import 'package:elwekala/features/auth/data/repositories/auth_repository_impl.da
 import 'package:elwekala/features/auth/domain/repositories/auth_repository.dart';
 import 'package:elwekala/features/auth/domain/usecases/auth_use_case.dart';
 import 'package:elwekala/features/auth/presentation/controllers/auth_cubit.dart';
+import 'package:elwekala/features/home/data/dataSources/get_product_remote_data_source.dart';
+import 'package:elwekala/features/home/data/repos/get_product_repo_impl.dart';
+import 'package:elwekala/features/home/domain/repos/get_product_repository.dart';
+import 'package:elwekala/features/home/domain/usecase/get_product_use_case.dart';
+import 'package:elwekala/features/home/presentation/controllers/get_laptops_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -32,4 +37,22 @@ Future<void> init() async {
 
   // Cubit
   sl.registerFactory(() => AuthCubit(sl()));
+
+  // Home - Products (Laptops)
+
+  // DataSource
+  sl.registerLazySingleton<GetProductRemoteDataSource>(
+    () => GetProductRemoteDataSourceImpl(apiConsumer: sl()),
+  );
+
+  // Repository
+  sl.registerLazySingleton<GetProductRepository>(
+    () => GetProductRepoImpl(remoteDataSource: sl()),
+  );
+
+  // UseCase
+  sl.registerLazySingleton(() => GetProductUseCase(sl()));
+
+  // Cubit
+  sl.registerFactory(() => GetLaptopsCubit(sl()));
 }
