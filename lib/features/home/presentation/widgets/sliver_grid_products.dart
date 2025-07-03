@@ -1,5 +1,5 @@
 import 'package:elwekala/core/constants/app_routes.dart';
-import 'package:elwekala/features/home/data/models/product.dart';
+import 'package:elwekala/features/home/domain/entities/product.dart';
 import 'package:elwekala/features/home/presentation/widgets/product_card.dart';
 import 'package:elwekala/features/home/presentation/widgets/sliver_grid_animation.dart';
 import 'package:flutter/material.dart';

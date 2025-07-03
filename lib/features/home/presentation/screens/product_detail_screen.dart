@@ -1,4 +1,4 @@
-import 'package:elwekala/features/home/data/models/product.dart';
+import 'package:elwekala/features/home/domain/entities/product.dart';
 import 'package:elwekala/features/home/presentation/widgets/info_detail_screen.dart';
 import 'package:elwekala/features/home/presentation/widgets/product_image_carousel.dart';
 import 'package:flutter/material.dart';

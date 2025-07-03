@@ -1,6 +1,6 @@
 import 'package:elwekala/core/constants/app_colors.dart';
 import 'package:elwekala/core/widgets/image_with_shimmer.dart';
-import 'package:elwekala/features/home/data/models/product.dart';
+import 'package:elwekala/features/home/domain/entities/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -174,7 +174,7 @@ class _ProductPriceRatingSection extends StatelessWidget {
             Icon(Icons.star_rounded, color: Colors.amber, size: 16.sp),
             SizedBox(width: 4.w),
             Text(
-              product.rating.toStringAsFixed(1),
+              0.toStringAsFixed(1),
               style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600),
             ),
           ],

@@ -1,6 +1,6 @@
 import 'package:elwekala/core/constants/app_colors.dart';
 import 'package:elwekala/core/widgets/custom_button.dart';
-import 'package:elwekala/features/home/data/models/product.dart';
+import 'package:elwekala/features/home/domain/entities/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:readmore/readmore.dart';
@@ -106,7 +106,7 @@ class _RatingAndStock extends StatelessWidget {
         Row(
           children: List.generate(5, (index) {
             return Icon(
-              index < product.rating.floor() ? Icons.star : Icons.star_border,
+              index < 0.floor() ? Icons.star : Icons.star_border,
               color: Colors.amber,
               size: 20.sp,
             );
@@ -114,7 +114,7 @@ class _RatingAndStock extends StatelessWidget {
         ),
         SizedBox(width: 8.w),
         Text(
-          '${product.rating.toStringAsFixed(1)} (${product.reviews} reviews)',
+          '${0.toStringAsFixed(1)} (${0} reviews)',
           style: TextStyle(fontSize: 14.sp),
         ),
         const Spacer(),
