@@ -69,4 +69,7 @@ class AppStrings {
   // -------------------- Dialog Messages --------------------
   static const String errorSelectGender = 'Please choose a gender';
   static const String errorSelectImage = 'Please select a profile image';
+
+  // -------------------- Home --------------------
+  static const String searchHint = 'Search for laptops...';
 }
