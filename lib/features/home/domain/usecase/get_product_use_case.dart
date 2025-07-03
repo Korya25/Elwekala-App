@@ -8,7 +8,7 @@ class GetProductUseCase {
   GetProductUseCase({required this.repository});
 
   // get laptop product
-  Future<Either<String, Product>> getLaptops() {
+  Future<Either<String, List<Product>>> getLaptops() {
     return repository.getLaptops();
   }
 }

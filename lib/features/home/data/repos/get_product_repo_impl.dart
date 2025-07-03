@@ -9,7 +9,7 @@ class GetProductRepoImpl extends GetProductRepository {
 
   GetProductRepoImpl({required this.remoteDataSource});
   @override
-  Future<Either<String, Product>> getLaptops() async {
+  Future<Either<String, List<Product>>> getLaptops() async {
     try {
       final model = await remoteDataSource.getLaptops();
 

@@ -5,7 +5,7 @@ import 'package:elwekala/core/errors/exceptions.dart';
 import 'package:elwekala/features/home/data/models/product_model.dart';
 
 abstract class GetProductRemoteDataSource {
-  Future<ProductModel> getLaptops();
+  Future<List<ProductModel>> getLaptops();
 }
 
 class GetProductRemoteDataSourceImpl extends GetProductRemoteDataSource {
@@ -13,12 +13,12 @@ class GetProductRemoteDataSourceImpl extends GetProductRemoteDataSource {
 
   GetProductRemoteDataSourceImpl({required this.apiConsumer});
   @override
-  Future<ProductModel> getLaptops() async {
+  Future<List<ProductModel>> getLaptops() async {
     try {
       // response
       final response = await apiConsumer.get(EndPoints.getLaptops);
-
-      return ProductModel.fromJson(response);
+      final List productList = response[ApiKeys.product];
+      return productList.map((json) => ProductModel.fromJson(json)).toList();
     } on DioException catch (e) {
       handleDioException(e);
       rethrow;
