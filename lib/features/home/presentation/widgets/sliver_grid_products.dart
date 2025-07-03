@@ -1,3 +1,4 @@
+import 'package:elwekala/core/constants/app_routes.dart';
 import 'package:elwekala/features/home/data/models/product.dart';
 import 'package:elwekala/features/home/presentation/widgets/product_card.dart';
 import 'package:elwekala/features/home/presentation/widgets/sliver_grid_animation.dart';
@@ -19,7 +20,8 @@ class SliverGridProducts extends StatelessWidget {
           productIndex: index,
           child: ProductCard(
             product: product,
-            onTap: () => context.pushNamed('/product/${product.id}'),
+            onTap: () =>
+                context.pushNamed(AppRoutes.productDetail, extra: product),
           ),
         );
       }, childCount: products.length),
@@ -32,7 +34,7 @@ class SliverGridProducts extends StatelessWidget {
       crossAxisCount: 2,
       crossAxisSpacing: 16.w,
       mainAxisSpacing: 16.h,
-      childAspectRatio: 0.6,
+      childAspectRatio: 0.65,
     );
   }
 }

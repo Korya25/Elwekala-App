@@ -20,4 +20,13 @@ class AppColors {
   // Icon Colors
   static const Color iconColor = Color(0xFF95A5A6);
   static const Color activeIconColor = Color(0xFF6C63FF);
+
+ //  Shimmer Colors 
+  static const Color shimmerBase = Color(
+    0xFF1A1A1A,
+  ); 
+  static const Color shimmerHighlight = Color(
+    0xFF424242,
+  ); 
+
 }

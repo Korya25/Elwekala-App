@@ -1,5 +1,5 @@
 import 'package:elwekala/core/constants/app_colors.dart';
-import 'package:elwekala/core/widgets/custom_button.dart';
+import 'package:elwekala/core/widgets/image_with_shimmer.dart';
 import 'package:elwekala/features/home/data/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,154 +12,171 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.surfaceColor,
-          borderRadius: BorderRadius.circular(12.r),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withAlpha(13),
-              blurRadius: 10,
-              offset: Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Product Image
-            Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(12.r),
-                  ),
-                  child: Image.network(
-                    product.image,
-                    height: 120.h,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        height: 120.h,
-                        color: AppColors.secondaryColor,
-                        child: Icon(Icons.image_not_supported),
-                      );
-                    },
-                  ),
-                ),
-                Positioned(
-                  top: 8.w,
-                  right: 8.w,
-                  child: IconButton(
-                    onPressed: () {
-                      // Toggle favorite
-                    },
-                    icon: Icon(
-                      product.isFavorite
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      color: product.isFavorite
-                          ? AppColors.errorColor
-                          : Colors.white,
-                    ),
-                  ),
-                ),
-                if (product.status == 'Used')
-                  Positioned(
-                    top: 8.w,
-                    left: 8.w,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 8.w,
-                        vertical: 4.h,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.orange,
-                        borderRadius: BorderRadius.circular(4.r),
-                      ),
-                      child: Text(
-                        'Used',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.all(12.w),
+    return Container(
+      decoration: _buildBoxDecoration(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Product Image with Status Badge
+          _ProductImageSection(product: product),
+
+          // Product Details
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Product Name
-                  Text(
-                    product.name,
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(height: 4.h),
-
-                  // Company
-                  Text(
-                    product.company,
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      color: AppColors.secondaryTextColor,
-                    ),
-                  ),
+                  // Product Name & Brand
+                  _ProductTitleSection(product: product),
                   SizedBox(height: 8.h),
 
-                  // Price and Rating
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '\$${product.price.toStringAsFixed(2)}',
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primaryColor,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Icon(Icons.star, color: Colors.amber, size: 16.sp),
-                          SizedBox(width: 4.w),
-                          Text(
-                            product.rating.toStringAsFixed(1),
-                            style: TextStyle(fontSize: 12.sp),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 8.h),
-
-                  // Add to Cart Button
-                  CustomButton(
-                    text: 'Add to Cart',
-                    onPressed: () {
-                      // Add to cart logic
-                    },
-                    height: 32.h,
-                    padding: EdgeInsets.zero,
-                  ),
+                  // Price & Rating
+                  _ProductPriceRatingSection(product: product),
                 ],
               ),
             ),
-          ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  BoxDecoration _buildBoxDecoration() {
+    return BoxDecoration(
+      color: AppColors.surfaceColor,
+      borderRadius: BorderRadius.circular(12.r),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withAlpha(13),
+          blurRadius: 8,
+          offset: const Offset(0, 2),
+        ),
+      ],
+    );
+  }
+}
+
+class _ProductImageSection extends StatelessWidget {
+  final Product product;
+
+  const _ProductImageSection({required this.product});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        // Image
+        ClipRRect(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(12.r)),
+          child: ImageWithShimmer(
+            imageUrl: product.image,
+            width: double.infinity,
+            height: 140.h,
+          ),
+        ),
+
+        // Used Badge
+        if (product.status == 'Used') _buildUsedBadge(),
+      ],
+    );
+  }
+
+  Widget _buildUsedBadge() {
+    return Positioned(
+      top: 8.w,
+      left: 8.w,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+        decoration: BoxDecoration(
+          color: Colors.orange,
+          borderRadius: BorderRadius.circular(4.r),
+        ),
+        child: Text(
+          'Used',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 10.sp,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
+    );
+  }
+}
+
+class _ProductTitleSection extends StatelessWidget {
+  final Product product;
+
+  const _ProductTitleSection({required this.product});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: 4,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Product Name
+        Text(
+          product.name.trim(),
+
+          style: TextStyle(
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w600,
+            height: 1.3,
+          ),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+
+        // Company
+        Text(
+          product.company,
+          style: TextStyle(
+            fontSize: 12.sp,
+            color: AppColors.secondaryTextColor,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ProductPriceRatingSection extends StatelessWidget {
+  final Product product;
+
+  const _ProductPriceRatingSection({required this.product});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        // Price
+        Text(
+          '\$${product.price.toStringAsFixed(2)}',
+          maxLines: 1,
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w700,
+            color: AppColors.primaryColor,
+          ),
+        ),
+
+        // Rating
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.star_rounded, color: Colors.amber, size: 16.sp),
+            SizedBox(width: 4.w),
+            Text(
+              product.rating.toStringAsFixed(1),
+              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
