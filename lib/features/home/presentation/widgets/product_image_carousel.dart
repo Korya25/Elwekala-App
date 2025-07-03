@@ -1,0 +1,64 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:elwekala/core/constants/app_colors.dart';
+import 'package:elwekala/core/widgets/custom_somoth_page_indicator.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class ProductImageCarousel extends StatefulWidget {
+  final List<String> images;
+
+  const ProductImageCarousel({super.key, required this.images});
+
+  @override
+  State<ProductImageCarousel> createState() => _ProductImageCarouselState();
+}
+
+class _ProductImageCarouselState extends State<ProductImageCarousel> {
+  int _currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 300.h,
+      width: double.infinity,
+      child: Stack(
+        children: [
+          _buildCarousel(),
+          Positioned(bottom: 20.h, left: 12.w, child: _buildIndicator()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCarousel() {
+    return CarouselSlider.builder(
+      itemCount: widget.images.length,
+      itemBuilder: (context, index, _) {
+        final imageUrl = widget.images[index];
+        return Image.network(
+          imageUrl,
+          width: double.infinity,
+          fit: BoxFit.contain,
+          errorBuilder: (context, error, stackTrace) => Container(
+            color: AppColors.secondaryColor,
+            child: const Icon(Icons.image_not_supported),
+          ),
+        );
+      },
+      options: CarouselOptions(
+        height: 300.h,
+        autoPlay: true,
+        autoPlayInterval: const Duration(seconds: 3),
+        viewportFraction: 1.0,
+        onPageChanged: (index, _) => setState(() => _currentIndex = index),
+      ),
+    );
+  }
+
+  Widget _buildIndicator() {
+    return CustomSomothPageIndicator(
+      currentIndex: _currentIndex,
+      length: widget.images.length,
+    );
+  }
+}
