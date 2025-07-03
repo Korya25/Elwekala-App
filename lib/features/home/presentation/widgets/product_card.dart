@@ -12,32 +12,35 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: _buildBoxDecoration(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Product Image with Status Badge
-          _ProductImageSection(product: product),
-
-          // Product Details
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Product Name & Brand
-                  _ProductTitleSection(product: product),
-                  SizedBox(height: 8.h),
-
-                  // Price & Rating
-                  _ProductPriceRatingSection(product: product),
-                ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: _buildBoxDecoration(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Product Image with Status Badge
+            _ProductImageSection(product: product),
+      
+            // Product Details
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Product Name & Brand
+                    _ProductTitleSection(product: product),
+                    SizedBox(height: 8.h),
+      
+                    // Price & Rating
+                    _ProductPriceRatingSection(product: product),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
