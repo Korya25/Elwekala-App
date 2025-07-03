@@ -3,6 +3,7 @@ import 'package:elwekala/core/constants/app_colors.dart';
 import 'package:elwekala/core/widgets/custom_somoth_page_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'carousel_actions.dart';
 
 class ProductImageCarousel extends StatefulWidget {
   final List<String> images;
@@ -15,6 +16,7 @@ class ProductImageCarousel extends StatefulWidget {
 
 class _ProductImageCarouselState extends State<ProductImageCarousel> {
   int _currentIndex = 0;
+  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +26,26 @@ class _ProductImageCarouselState extends State<ProductImageCarousel> {
       child: Stack(
         children: [
           _buildCarousel(),
-          Positioned(bottom: 20.h, left: 12.w, child: _buildIndicator()),
+          Positioned(
+            bottom: 20.h,
+            left: 12.w,
+            child: CustomSomothPageIndicator(
+              currentIndex: _currentIndex,
+              length: widget.images.length,
+            ),
+          ),
+          CarouselActions(
+            isFavorite: isFavorite,
+            onFavoritePressed: _toggleFavorite,
+            onBackPressed: () => Navigator.pop(context),
+          ),
         ],
       ),
     );
+  }
+
+  void _toggleFavorite() {
+    setState(() => isFavorite = !isFavorite);
   }
 
   Widget _buildCarousel() {
@@ -52,13 +70,6 @@ class _ProductImageCarouselState extends State<ProductImageCarousel> {
         viewportFraction: 1.0,
         onPageChanged: (index, _) => setState(() => _currentIndex = index),
       ),
-    );
-  }
-
-  Widget _buildIndicator() {
-    return CustomSomothPageIndicator(
-      currentIndex: _currentIndex,
-      length: widget.images.length,
     );
   }
 }

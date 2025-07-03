@@ -1,5 +1,4 @@
 import 'package:elwekala/features/home/data/models/product.dart';
-import 'package:elwekala/features/home/presentation/widgets/home_app_bar.dart';
 import 'package:elwekala/features/home/presentation/widgets/info_detail_screen.dart';
 import 'package:elwekala/features/home/presentation/widgets/product_image_carousel.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +11,12 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HomeAppBar(
-        showBackButton: true,
-        showCart: false,
-        onFavoritesPressed: () {},
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: _ProductDetailScreenBody(product: product),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: _ProductDetailScreenBody(product: product),
+          ),
         ),
       ),
     );

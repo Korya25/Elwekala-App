@@ -35,9 +35,15 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.favorites,
+        name: AppRoutes.favorites,
         builder: (context, state) => Scaffold(),
       ),
-      GoRoute(path: AppRoutes.cart, builder: (context, state) => Scaffold()),
+      GoRoute(
+        path: AppRoutes.cart,
+        name: AppRoutes.cart,
+
+        builder: (context, state) => Scaffold(),
+      ),
     ],
   );
 }
