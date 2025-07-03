@@ -4,6 +4,7 @@ import 'package:elwekala/features/profile/widgets/profile_header.dart';
 import 'package:elwekala/features/profile/widgets/profile_settings_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -15,7 +16,7 @@ class ProfileScreen extends StatelessWidget {
         leading: IconButton(
           padding: EdgeInsets.only(left: 24.w),
           onPressed: () {
-            //context.pop();
+            context.pop();
           },
           icon: Icon(Icons.arrow_back_ios),
         ),

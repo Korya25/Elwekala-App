@@ -1,5 +1,6 @@
 import 'package:elwekala/core/constants/app_routes.dart';
 import 'package:elwekala/features/auth/presentation/screens/login_screen.dart';
+import 'package:elwekala/features/home/presentation/screens/home_screen.dart';
 import 'package:elwekala/features/profile/screens/profile_screen.dart';
 import 'package:elwekala/features/auth/presentation/screens/register_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class AppRouter {
         path: AppRoutes.profile,
         builder: (context, state) => ProfileScreen(),
       ),
-      GoRoute(path: AppRoutes.home, builder: (context, state) => Scaffold()),
+      GoRoute(path: AppRoutes.home, builder: (context, state) => HomeScreen()),
       GoRoute(
         path: AppRoutes.productDetail,
         builder: (context, state) {

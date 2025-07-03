@@ -40,7 +40,7 @@ class RegisterButton extends StatelessWidget {
         if (state is AuthFailure) {
           AppDialogs.showError(context, state.message);
         } else if (state is AuthSuccess) {
-          context.go(AppRoutes.profile, extra: state.user);
+          context.go(AppRoutes.home);
         }
       },
       builder: (context, state) {
