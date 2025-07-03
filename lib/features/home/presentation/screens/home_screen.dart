@@ -1,7 +1,7 @@
 import 'package:elwekala/core/constants/app_colors.dart';
-import 'package:elwekala/core/constants/app_routes.dart';
 import 'package:elwekala/core/widgets/custom_text_form_field.dart';
 import 'package:elwekala/features/home/data/models/product.dart';
+import 'package:elwekala/features/home/presentation/widgets/home_app_bar.dart';
 import 'package:elwekala/features/home/presentation/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
   String _selectedCategory = 'All';
   String _selectedFilter = 'Popular';
 
-  // This would come from your API in a real app
   final List<Product> products = List.generate(20, (index) {
     return Product(
       id: 'prod_$index',
@@ -47,23 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Laptops'),
-        actions: [
-          IconButton(
-            onPressed: () => context.pushNamed(AppRoutes.favorites),
-            icon: Icon(Icons.favorite_border),
-          ),
-          IconButton(
-            onPressed: () => context.pushNamed(AppRoutes.cart),
-            icon: Icon(Icons.shopping_cart_outlined),
-          ),
-          IconButton(
-            onPressed: () => context.pushNamed(AppRoutes.profile),
-            icon: Icon(Icons.person_outline),
-          ),
-        ],
-      ),
+      appBar: HomeAppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16.w),
