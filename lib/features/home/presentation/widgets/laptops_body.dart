@@ -1,3 +1,4 @@
+import 'package:elwekala/core/constants/app_colors.dart';
 import 'package:elwekala/features/home/domain/entities/product.dart';
 import 'package:elwekala/features/home/presentation/widgets/home_search_bar.dart';
 import 'package:elwekala/features/home/presentation/widgets/sliver_grid_products.dart';
@@ -22,6 +23,14 @@ class LaptopSuccessBody extends StatelessWidget {
           child: HomeSearchBar(searchController: searchController),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 16)),
+        SliverToBoxAdapter(
+          child: Text(
+            ' ${products.length} results',
+            style: TextStyle(fontSize: 20, color: AppColors.secondaryTextColor),
+          ),
+        ),
+        const SliverToBoxAdapter(child: SizedBox(height: 16)),
+
         SliverGridProducts(products: products),
       ],
     );
