@@ -4,12 +4,14 @@ import 'package:elwekala/core/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class HomeSearchBar extends StatelessWidget {
+  final TextEditingController _searchController;
+  final Function(String) onChanged;
+
   const HomeSearchBar({
     super.key,
     required TextEditingController searchController,
+    required this.onChanged,
   }) : _searchController = searchController;
-
-  final TextEditingController _searchController;
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +19,10 @@ class HomeSearchBar extends StatelessWidget {
       controller: _searchController,
       hintText: AppStrings.searchHint,
       prefixIcon: Icon(Icons.search, color: AppColors.iconColor),
+      onChanged: onChanged,
       suffixIcon: IconButton(
         icon: Icon(Icons.filter_list, color: AppColors.iconColor),
-        onPressed: () {
-        },
+        onPressed: () {},
       ),
     );
   }

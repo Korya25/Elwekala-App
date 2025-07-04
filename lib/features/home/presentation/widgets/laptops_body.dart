@@ -77,9 +77,12 @@ class _LaptopSuccessBodyState extends State<LaptopSuccessBody> {
       physics: const BouncingScrollPhysics(),
       slivers: [
         SliverToBoxAdapter(
-        
-          child: HomeSearchBar(searchController: widget.searchController,
-          
+          child: HomeSearchBar(
+            searchController: widget.searchController,
+            onChanged: (query) {
+              filterOptions = filterOptions.copyWith(nameQuery: query);
+              applyFilter();
+            },
           ),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 16)),
@@ -91,7 +94,7 @@ class _LaptopSuccessBodyState extends State<LaptopSuccessBody> {
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
-        SliverGridProducts(products: widget.products),
+        SliverGridProducts(products: filteredProducts),
       ],
     );
   }
