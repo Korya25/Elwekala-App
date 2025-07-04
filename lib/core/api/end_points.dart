@@ -19,6 +19,8 @@ class ApiKeys {
   static const email = 'email';
   static const phone = 'phone';
   static const nationalId = 'nationalId';
+  static const productId = 'productId';
+
   static const gender = 'gender';
   static const profileImage = 'profileImage';
   static const token = 'token';
