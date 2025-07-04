@@ -62,6 +62,7 @@ class ConditionCards extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: isSelected
+              // ignore: deprecated_member_use
               ? AppColors.primaryColor.withOpacity(0.1)
               : AppColors.surfaceColor,
           border: Border.all(

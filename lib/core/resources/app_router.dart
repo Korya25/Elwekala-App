@@ -1,5 +1,6 @@
 import 'package:elwekala/core/constants/app_routes.dart';
 import 'package:elwekala/features/auth/presentation/screens/login_screen.dart';
+import 'package:elwekala/features/favorites/presentation/screens/favorites_screen.dart';
 import 'package:elwekala/features/home/domain/entities/product.dart';
 import 'package:elwekala/features/home/presentation/screens/home_screen.dart';
 import 'package:elwekala/features/home/presentation/screens/product_detail_screen.dart';
@@ -36,7 +37,7 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.favorites,
         name: AppRoutes.favorites,
-        builder: (context, state) => Scaffold(),
+        builder: (context, state) => FavoritesScreen(),
       ),
       GoRoute(
         path: AppRoutes.cart,

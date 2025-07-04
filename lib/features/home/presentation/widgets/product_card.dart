@@ -23,20 +23,18 @@ class ProductCard extends StatelessWidget {
             _ProductImageSection(product: product),
 
             // Product Details
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Product Name & Brand
-                    _ProductTitleSection(product: product),
-                    SizedBox(height: 8.h),
-
-                    // Price & Rating
-                    _ProductPriceRatingSection(product: product),
-                  ],
-                ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Product Name & Brand
+                  _ProductTitleSection(product: product),
+                  SizedBox(height: 8.h),
+            
+                  // Price & Rating
+                  _ProductPriceRatingSection(product: product),
+                ],
               ),
             ),
           ],
