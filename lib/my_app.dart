@@ -1,6 +1,7 @@
 import 'package:elwekala/core/resources/app_router.dart';
 import 'package:elwekala/core/resources/app_theme.dart';
 import 'package:elwekala/features/auth/presentation/controllers/auth_cubit.dart';
+import 'package:elwekala/features/favorites/presentation/controllers/favorite_cubit.dart';
 import 'package:elwekala/features/home/presentation/controllers/get_laptops_cubit.dart';
 import 'package:elwekala/injection.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,12 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => sl<AuthCubit>()),
         BlocProvider(create: (_) => sl<GetLaptopsCubit>()..getLaptops()),
+        BlocProvider(
+          create: (_) =>
+              sl<FavoriteCubit>()..getFavorite(nationalId: "01009876567876"),
+        ),
       ],
+
       child: ScreenUtilInit(
         designSize: Size(375, 812),
         minTextAdapt: true,

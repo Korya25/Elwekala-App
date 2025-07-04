@@ -1,8 +1,12 @@
+// ignore_for_file: overridden_fields
+
 import 'package:elwekala/core/api/end_points.dart';
 import 'package:elwekala/features/favorites/domain/entities/favorite_action_entite.dart';
 
 class FavoriteActionResponse extends FavoriteActionEntite {
+  @override
   final String status;
+  @override
   final String message;
 
   FavoriteActionResponse(this.status, this.message)

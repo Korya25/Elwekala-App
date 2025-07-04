@@ -1,16 +1,17 @@
-import 'package:elwekala/features/home/presentation/widgets/favorite_button.dart.dart';
+import 'package:elwekala/features/favorites/presentation/widgets/favorite_button.dart';
+import 'package:elwekala/features/home/domain/entities/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:elwekala/core/widgets/ios_back_button.dart';
 
 class CarouselActions extends StatelessWidget {
-  final bool isFavorite;
+  final Product product;
   final VoidCallback onFavoritePressed;
   final VoidCallback onBackPressed;
 
   const CarouselActions({
     super.key,
-    required this.isFavorite,
+    required this.product,
     required this.onFavoritePressed,
     required this.onBackPressed,
   });
@@ -22,12 +23,7 @@ class CarouselActions extends StatelessWidget {
         Positioned(
           right: 20.w,
           top: 20.h,
-          child: FavoriteButton(
-            isFavorite: isFavorite,
-            onPressed: onFavoritePressed,
-            size: 50.0,
-            selectedColor: Colors.pink,
-            unselectedColor: Colors.grey.shade400,
+          child: FavoriteButton(product:product ,
           ),
         ),
         Positioned(

@@ -6,6 +6,11 @@ import 'package:elwekala/features/auth/data/repositories/auth_repository_impl.da
 import 'package:elwekala/features/auth/domain/repositories/auth_repository.dart';
 import 'package:elwekala/features/auth/domain/usecases/auth_use_case.dart';
 import 'package:elwekala/features/auth/presentation/controllers/auth_cubit.dart';
+import 'package:elwekala/features/favorites/data/dataSources/favorit_remote_data_source.dart';
+import 'package:elwekala/features/favorites/data/repos/get_favorite_repo_impl.dart';
+import 'package:elwekala/features/favorites/domain/repos/favorite_repo.dart';
+import 'package:elwekala/features/favorites/domain/useCase/favorite_use_case.dart';
+import 'package:elwekala/features/favorites/presentation/controllers/favorite_cubit.dart';
 import 'package:elwekala/features/home/data/dataSources/get_product_remote_data_source.dart';
 import 'package:elwekala/features/home/data/repos/get_product_repo_impl.dart';
 import 'package:elwekala/features/home/domain/repos/get_product_repository.dart';
@@ -21,6 +26,8 @@ Future<void> init() async {
 
   // API Consumer
   sl.registerLazySingleton<ApiConsumer>(() => DioConsumer(dio: sl()));
+
+  // ------------------ Auth ------------------
 
   // DataSource
   sl.registerLazySingleton<AuthRemoteDataSource>(
@@ -38,7 +45,7 @@ Future<void> init() async {
   // Cubit
   sl.registerFactory(() => AuthCubit(sl()));
 
-  // Home - Products (Laptops)
+  // ------------------ Home - Products ------------------
 
   // DataSource
   sl.registerLazySingleton<GetProductRemoteDataSource>(
@@ -55,4 +62,22 @@ Future<void> init() async {
 
   // Cubit
   sl.registerFactory(() => GetLaptopsCubit(sl()));
+
+  // ------------------ Favorite ------------------
+
+  // DataSource
+  sl.registerLazySingleton<FavoriteRemoteDataSource>(
+    () => FavoriteRemoteDataSourceImpl(apiConsumer: sl()),
+  );
+
+  // Repository
+  sl.registerLazySingleton<FavoriteRepo>(
+    () => GetFavoriteRepoImpl(favoriteRemoteDataSource: sl()),
+  );
+
+  // UseCase
+  sl.registerLazySingleton(() => FavoriteUseCase(sl()));
+
+  // Cubit
+  sl.registerFactory(() => FavoriteCubit(sl()));
 }

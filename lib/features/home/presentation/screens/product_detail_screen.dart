@@ -32,7 +32,7 @@ class _ProductDetailScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ProductImageCarousel(images: product.images),
+        ProductImageCarousel(product: product),
         Padding(
           padding: EdgeInsets.all(16.w),
           child: InfoDetailScreen(product: product),

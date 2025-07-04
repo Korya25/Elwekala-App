@@ -1,4 +1,5 @@
 import 'package:elwekala/core/constants/app_routes.dart';
+import 'package:elwekala/features/favorites/presentation/widgets/favorite_button.dart';
 import 'package:elwekala/features/home/domain/entities/product.dart';
 import 'package:elwekala/features/home/presentation/widgets/product_card.dart';
 import 'package:elwekala/features/home/presentation/widgets/sliver_grid_animation.dart';
@@ -22,10 +23,15 @@ class SliverGridProducts extends StatelessWidget {
         final product = products[index];
         return SliverGridAnimation(
           productIndex: index,
-          child: ProductCard(
-            product: product,
-            onTap: () =>
-                context.pushNamed(AppRoutes.productDetail, extra: product),
+          child: Stack(
+            children: [
+              ProductCard(
+                product: product,
+                onTap: () =>
+                    context.pushNamed(AppRoutes.productDetail, extra: product),
+              ),
+              Positioned(right: 10, child: FavoriteButton(product: product)),
+            ],
           ),
         );
       },

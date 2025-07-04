@@ -37,6 +37,7 @@ class FavoriteRemoteDataSourceImpl extends FavoriteRemoteDataSource {
     }
   }
 
+  @override
   Future<FavoriteActionResponse> addFavoriteAction({
     required String nationalId,
     required String productId,
@@ -55,6 +56,7 @@ class FavoriteRemoteDataSourceImpl extends FavoriteRemoteDataSource {
     }
   }
 
+  @override
   Future<FavoriteActionResponse> deleteFavoriteAction({
     required String nationalId,
     required String productId,

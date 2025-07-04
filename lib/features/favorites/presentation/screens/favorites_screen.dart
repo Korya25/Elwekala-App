@@ -1,12 +1,9 @@
-import 'package:dio/dio.dart';
-import 'package:elwekala/core/api/dio_consumer.dart';
+
 import 'package:elwekala/core/utils/app_dialogs.dart';
-import 'package:elwekala/features/favorites/data/dataSources/favorit_remote_data_source.dart';
-import 'package:elwekala/features/favorites/data/repos/get_favorite_repo_impl.dart';
-import 'package:elwekala/features/favorites/domain/useCase/favorite_use_case.dart';
 import 'package:elwekala/features/favorites/presentation/controllers/favorite_cubit.dart';
 import 'package:elwekala/features/favorites/presentation/controllers/favorite_state.dart';
 import 'package:elwekala/features/favorites/presentation/widgets/empty_favorite.dart';
+import 'package:elwekala/features/favorites/presentation/widgets/reload_favorite_button.dart';
 import 'package:elwekala/features/home/presentation/widgets/sliver_grid_products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,20 +13,17 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => FavoriteCubit(
-        FavoriteUseCase(
-          GetFavoriteRepoImpl(
-            favoriteRemoteDataSource: FavoriteRemoteDataSourceImpl(
-              apiConsumer: DioConsumer(dio: Dio()),
-            ),
-          ),
+    return
+       Scaffold(
+        appBar: AppBar(
+          title: const Text('My Favorites'),
+          actions: const [ReloadFavoriteButton()],
         ),
-      )..getFavorite(nationalId: "01009876567876"),
-      child: Scaffold(
-        appBar: AppBar(title: const Text('My Favorites')),
-        body: const FavoritesScreenBody(),
-      ),
+        body: SafeArea(child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: const FavoritesScreenBody(),
+        )),
+      
     );
   }
 }

@@ -1,14 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:elwekala/core/constants/app_colors.dart';
 import 'package:elwekala/core/widgets/custom_somoth_page_indicator.dart';
+import 'package:elwekala/features/home/domain/entities/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'carousel_actions.dart';
 
 class ProductImageCarousel extends StatefulWidget {
-  final List<String> images;
+  final Product product;
 
-  const ProductImageCarousel({super.key, required this.images});
+  const ProductImageCarousel({super.key, required this.product});
 
   @override
   State<ProductImageCarousel> createState() => _ProductImageCarouselState();
@@ -31,11 +32,11 @@ class _ProductImageCarouselState extends State<ProductImageCarousel> {
             left: 12.w,
             child: CustomSomothPageIndicator(
               currentIndex: _currentIndex,
-              length: widget.images.length,
+              length: widget.product.images.length,
             ),
           ),
           CarouselActions(
-            isFavorite: isFavorite,
+            product: widget.product,
             onFavoritePressed: _toggleFavorite,
             onBackPressed: () => Navigator.pop(context),
           ),
@@ -50,9 +51,9 @@ class _ProductImageCarouselState extends State<ProductImageCarousel> {
 
   Widget _buildCarousel() {
     return CarouselSlider.builder(
-      itemCount: widget.images.length,
+      itemCount: widget.product.images.length,
       itemBuilder: (context, index, _) {
-        final imageUrl = widget.images[index];
+        final imageUrl = widget.product.images[index];
         return Image.network(
           imageUrl,
           width: double.infinity,
