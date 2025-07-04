@@ -33,7 +33,7 @@ class LaptopSuccessBody extends StatelessWidget {
             onFilterApplied: (filterOptions) {
               context.read<GetLaptopsCubit>().filterLaptops(
                 ProductFilterOptions().copyWith(
-                  status: filterOptions.condition,
+                  status: filterOptions.status,
                   maxPrice: filterOptions.maxPrice,
                   minPrice: filterOptions.minPrice,
                 ),

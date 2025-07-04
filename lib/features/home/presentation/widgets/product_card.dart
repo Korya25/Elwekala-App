@@ -21,7 +21,7 @@ class ProductCard extends StatelessWidget {
           children: [
             // Product Image with Status Badge
             _ProductImageSection(product: product),
-      
+
             // Product Details
             Expanded(
               child: Padding(
@@ -32,7 +32,7 @@ class ProductCard extends StatelessWidget {
                     // Product Name & Brand
                     _ProductTitleSection(product: product),
                     SizedBox(height: 8.h),
-      
+
                     // Price & Rating
                     _ProductPriceRatingSection(product: product),
                   ],
@@ -75,7 +75,7 @@ class _ProductImageSection extends StatelessWidget {
           child: ImageWithShimmer(
             imageUrl: product.image,
             width: double.infinity,
-            height: 140.h,
+            height: 125.h,
           ),
         ),
 

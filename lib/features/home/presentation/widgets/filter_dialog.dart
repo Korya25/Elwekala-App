@@ -1,71 +1,11 @@
-
-import 'package:elwekala/core/constants/app_colors.dart';
-import 'package:elwekala/core/constants/app_strings.dart';
-import 'package:elwekala/core/widgets/custom_text_form_field.dart';
-import 'package:elwekala/features/home/presentation/widgets/filter_dialog.dart';
 import 'package:elwekala/features/home/presentation/widgets/filter_product.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class HomeSearchBar extends StatelessWidget {
-  final TextEditingController _searchController;
-  final Function(String) onChanged;
-  final Function(ProductFilterOptions)? onFilterApplied;
-
-  const HomeSearchBar({
-    super.key,
-    required TextEditingController searchController,
-    required this.onChanged,
-    this.onFilterApplied,
-  }) : _searchController = searchController;
-
-  void _showFilterDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => FilterDialog(onFilterApplied: onFilterApplied),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomTextFormField(
-      controller: _searchController,
-      hintText: AppStrings.searchHint,
-      prefixIcon: Icon(Icons.search, color: AppColors.iconColor),
-      onChanged: onChanged,
-      suffixIcon: IconButton(
-        icon: Icon(Icons.filter_list, color: AppColors.iconColor),
-        onPressed: () => _showFilterDialog(context),
-      ),
-    );
-  }
-}
-/*
-class FilterOptions {
-  final String? condition;
-  final double? minPrice;
-  final double? maxPrice;
-
-  FilterOptions({this.condition, this.minPrice, this.maxPrice});
-
-  FilterOptions copyWith({
-    String? condition,
-    double? minPrice,
-    double? maxPrice,
-  }) {
-    return FilterOptions(
-      condition: condition ?? this.condition,
-      minPrice: minPrice ?? this.minPrice,
-      maxPrice: maxPrice ?? this.maxPrice,
-    );
-  }
-
-  bool get hasActiveFilters =>
-      condition != null || minPrice != null || maxPrice != null;
-}
 
 class FilterDialog extends StatefulWidget {
-  final Function(FilterOptions)? onFilterApplied;
-  final FilterOptions? initialOptions;
+  final Function(ProductFilterOptions)? onFilterApplied;
+  final ProductFilterOptions? initialOptions;
 
   const FilterDialog({super.key, this.onFilterApplied, this.initialOptions});
 
@@ -73,58 +13,42 @@ class FilterDialog extends StatefulWidget {
   State<FilterDialog> createState() => _FilterDialogState();
 }
 
-class _FilterDialogState extends State<FilterDialog>
-    with SingleTickerProviderStateMixin {
-  String? _selectedCondition;
+class _FilterDialogState extends State<FilterDialog> {
+  String? _selectedStatus;
   final TextEditingController _minPriceController = TextEditingController();
   final TextEditingController _maxPriceController = TextEditingController();
-  late AnimationController _animationController;
-  late Animation<double> _scaleAnimation;
 
   @override
   void initState() {
     super.initState();
 
     if (widget.initialOptions != null) {
-      _selectedCondition = widget.initialOptions!.condition;
+      _selectedStatus = widget.initialOptions!.status;
       _minPriceController.text =
           widget.initialOptions!.minPrice?.toString() ?? '';
       _maxPriceController.text =
           widget.initialOptions!.maxPrice?.toString() ?? '';
     }
-
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 300),
-      vsync: this,
-    );
-    _scaleAnimation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.elasticOut,
-    );
-
-    _animationController.forward();
   }
 
   @override
   void dispose() {
     _minPriceController.dispose();
     _maxPriceController.dispose();
-    _animationController.dispose();
-    
     super.dispose();
   }
 
   void _clearFilters() {
     setState(() {
-      _selectedCondition = null;
+      _selectedStatus = null;
       _minPriceController.clear();
       _maxPriceController.clear();
     });
   }
 
   void _applyFilters() {
-    final filterOptions = FilterOptions(
-      condition: _selectedCondition,
+    final filterOptions = ProductFilterOptions(
+      status: _selectedStatus,
       minPrice: _minPriceController.text.isNotEmpty
           ? double.tryParse(_minPriceController.text)
           : null,
@@ -141,97 +65,94 @@ class _FilterDialogState extends State<FilterDialog>
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    return ScaleTransition(
-      scale: _scaleAnimation,
-      child: AlertDialog(
-        elevation: 24,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        backgroundColor: colorScheme.surface,
-        title: Container(
-          padding: const EdgeInsets.only(bottom: 16),
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: colorScheme.outline.withOpacity(0.2),
-                width: 1,
-              ),
+    return AlertDialog(
+      elevation: 24,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: colorScheme.surface,
+      title: Container(
+        padding: const EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: colorScheme.outline.withAlpha(51), // ~20% opacity
+              width: 1,
             ),
           ),
-          child: Row(
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: colorScheme.primary.withAlpha(25), // ~10% opacity
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(Icons.tune, color: colorScheme.primary, size: 24),
+            ),
+            const SizedBox(width: 12),
+            Text(
+              'Filter Options',
+              style: theme.textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: colorScheme.onSurface,
+              ),
+            ),
+          ],
+        ),
+      ),
+      content: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.8,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: colorScheme.primary.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(Icons.tune, color: colorScheme.primary, size: 24),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                'Filter Options',
-                style: theme.textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: colorScheme.onSurface,
-                ),
-              ),
+              // Condition Section
+              _buildSectionHeader('Condition', Icons.verified_outlined),
+              const SizedBox(height: 12),
+              _buildConditionCards(colorScheme),
+              const SizedBox(height: 24),
+
+              // Price Range Section
+              _buildSectionHeader('Price Range', Icons.attach_money_outlined),
+              const SizedBox(height: 12),
+              _buildPriceRangeSection(theme, colorScheme),
+              const SizedBox(height: 16),
             ],
           ),
         ),
-        content: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.8,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Condition Section
-                _buildSectionHeader('Condition', Icons.verified_outlined),
-                const SizedBox(height: 12),
-                _buildConditionCards(colorScheme),
-                const SizedBox(height: 24),
+      ),
+      actions: [
+        // Clear Filters Button
+        TextButton.icon(
+          onPressed: _clearFilters,
+          icon: const Icon(Icons.clear_all),
+          label: const Text('Clear'),
+          style: TextButton.styleFrom(foregroundColor: colorScheme.error),
+        ),
 
-                // Price Range Section
-                _buildSectionHeader('Price Range', Icons.attach_money_outlined),
-                const SizedBox(height: 12),
-                _buildPriceRangeSection(theme, colorScheme),
-                const SizedBox(height: 16),
-              ],
+        // Cancel Button
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text('Cancel'),
+        ),
+
+        // Apply Button
+        ElevatedButton.icon(
+          onPressed: _applyFilters,
+          icon: const Icon(Icons.check),
+          label: const Text('Apply'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: colorScheme.primary,
+            foregroundColor: colorScheme.onPrimary,
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
             ),
           ),
         ),
-        actions: [
-          // Clear Filters Button
-          TextButton.icon(
-            onPressed: _clearFilters,
-            icon: const Icon(Icons.clear_all),
-            label: const Text('Clear'),
-            style: TextButton.styleFrom(foregroundColor: colorScheme.error),
-          ),
-
-          // Cancel Button
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
-          ),
-
-          // Apply Button
-          ElevatedButton.icon(
-            onPressed: _applyFilters,
-            icon: const Icon(Icons.check),
-            label: const Text('Apply'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: colorScheme.primary,
-              foregroundColor: colorScheme.onPrimary,
-              elevation: 2,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-          ),
-        ],
-        actionsPadding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
-      ),
+      ],
+      actionsPadding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
     );
   }
 
@@ -270,31 +191,30 @@ class _FilterDialogState extends State<FilterDialog>
   }
 
   Widget _buildConditionCard(
-    String condition,
+    String status,
     IconData icon,
     ColorScheme colorScheme,
   ) {
-    final isSelected = _selectedCondition == condition;
+    final isSelected = _selectedStatus == status;
 
     return GestureDetector(
       onTap: () {
         setState(() {
-          _selectedCondition = _selectedCondition == condition
+          _selectedStatus = _selectedStatus == status
               ? null
-              : condition;
+              : status;
         });
       },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
+      child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: isSelected
-              ? colorScheme.primary.withOpacity(0.1)
+              ? colorScheme.primary.withAlpha(25) 
               : colorScheme.surface,
           border: Border.all(
             color: isSelected
                 ? colorScheme.primary
-                : colorScheme.outline.withOpacity(0.3),
+                : colorScheme.outline.withAlpha(76), 
             width: isSelected ? 2 : 1,
           ),
           borderRadius: BorderRadius.circular(12),
@@ -306,12 +226,12 @@ class _FilterDialogState extends State<FilterDialog>
               icon,
               color: isSelected
                   ? colorScheme.primary
-                  : colorScheme.onSurface.withOpacity(0.7),
+                  : colorScheme.onSurface.withAlpha(179), 
               size: 24,
             ),
             const SizedBox(height: 8),
             Text(
-              condition,
+              status,
               style: TextStyle(
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                 color: isSelected ? colorScheme.primary : colorScheme.onSurface,
@@ -328,7 +248,7 @@ class _FilterDialogState extends State<FilterDialog>
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: colorScheme.surface,
-        border: Border.all(color: colorScheme.outline.withOpacity(0.3)),
+        border: Border.all(color: colorScheme.outline.withAlpha(76)), // ~30% opacity
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -349,7 +269,7 @@ class _FilterDialogState extends State<FilterDialog>
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 child: Icon(
                   Icons.arrow_forward,
-                  color: colorScheme.onSurface.withOpacity(0.5),
+                  color: colorScheme.onSurface.withAlpha(127), // ~50% opacity
                 ),
               ),
               Expanded(
@@ -370,14 +290,14 @@ class _FilterDialogState extends State<FilterDialog>
               Icon(
                 Icons.info_outline,
                 size: 16,
-                color: colorScheme.onSurface.withOpacity(0.6),
+                color: colorScheme.onSurface.withAlpha(153), // ~60% opacity
               ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
                   'Leave empty for no limit',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurface.withOpacity(0.6),
+                    color: colorScheme.onSurface.withAlpha(153), // ~60% opacity
                   ),
                 ),
               ),
@@ -408,11 +328,11 @@ class _FilterDialogState extends State<FilterDialog>
         prefixIcon: Icon(prefixIcon, size: 20),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: colorScheme.outline.withOpacity(0.3)),
+          borderSide: BorderSide(color: colorScheme.outline.withAlpha(76)), // ~30% opacity
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: colorScheme.outline.withOpacity(0.3)),
+          borderSide: BorderSide(color: colorScheme.outline.withAlpha(76)), // ~30% opacity
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -429,4 +349,3 @@ class _FilterDialogState extends State<FilterDialog>
     );
   }
 }
-*/
