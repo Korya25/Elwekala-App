@@ -1,7 +1,7 @@
+import 'package:elwekala/core/utils/app_dialogs.dart';
 import 'package:elwekala/features/home/presentation/widgets/filter_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 
 class FilterDialog extends StatefulWidget {
   final Function(ProductFilterOptions)? onFilterApplied;
@@ -45,7 +45,7 @@ class _FilterDialogState extends State<FilterDialog> {
       _maxPriceController.clear();
     });
   }
-
+  /*
   void _applyFilters() {
     final filterOptions = ProductFilterOptions(
       status: _selectedStatus,
@@ -55,6 +55,32 @@ class _FilterDialogState extends State<FilterDialog> {
       maxPrice: _maxPriceController.text.isNotEmpty
           ? double.tryParse(_maxPriceController.text)
           : null,
+    );
+    widget.onFilterApplied?.call(filterOptions);
+    Navigator.of(context).pop();
+  }
+*/
+
+  void _applyFilters() {
+    final minPrice = _minPriceController.text.isNotEmpty
+        ? double.tryParse(_minPriceController.text)
+        : null;
+    final maxPrice = _maxPriceController.text.isNotEmpty
+        ? double.tryParse(_maxPriceController.text)
+        : null;
+
+    if (minPrice != null && maxPrice != null && minPrice > maxPrice) {
+      AppDialogs.showError(
+        context,
+        'The minimum must be less than the maximum',
+      );
+      return;
+    }
+
+    final filterOptions = ProductFilterOptions(
+      status: _selectedStatus,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
     );
     widget.onFilterApplied?.call(filterOptions);
     Navigator.of(context).pop();
@@ -200,21 +226,19 @@ class _FilterDialogState extends State<FilterDialog> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          _selectedStatus = _selectedStatus == status
-              ? null
-              : status;
+          _selectedStatus = _selectedStatus == status ? null : status;
         });
       },
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: isSelected
-              ? colorScheme.primary.withAlpha(25) 
+              ? colorScheme.primary.withAlpha(25)
               : colorScheme.surface,
           border: Border.all(
             color: isSelected
                 ? colorScheme.primary
-                : colorScheme.outline.withAlpha(76), 
+                : colorScheme.outline.withAlpha(76),
             width: isSelected ? 2 : 1,
           ),
           borderRadius: BorderRadius.circular(12),
@@ -226,7 +250,7 @@ class _FilterDialogState extends State<FilterDialog> {
               icon,
               color: isSelected
                   ? colorScheme.primary
-                  : colorScheme.onSurface.withAlpha(179), 
+                  : colorScheme.onSurface.withAlpha(179),
               size: 24,
             ),
             const SizedBox(height: 8),
@@ -248,7 +272,9 @@ class _FilterDialogState extends State<FilterDialog> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: colorScheme.surface,
-        border: Border.all(color: colorScheme.outline.withAlpha(76)), // ~30% opacity
+        border: Border.all(
+          color: colorScheme.outline.withAlpha(76),
+        ), // ~30% opacity
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -328,11 +354,15 @@ class _FilterDialogState extends State<FilterDialog> {
         prefixIcon: Icon(prefixIcon, size: 20),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: colorScheme.outline.withAlpha(76)), // ~30% opacity
+          borderSide: BorderSide(
+            color: colorScheme.outline.withAlpha(76),
+          ), // ~30% opacity
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: colorScheme.outline.withAlpha(76)), // ~30% opacity
+          borderSide: BorderSide(
+            color: colorScheme.outline.withAlpha(76),
+          ), // ~30% opacity
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
