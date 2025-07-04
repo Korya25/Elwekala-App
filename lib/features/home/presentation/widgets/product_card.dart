@@ -31,7 +31,7 @@ class ProductCard extends StatelessWidget {
                   // Product Name & Brand
                   _ProductTitleSection(product: product),
                   SizedBox(height: 8.h),
-            
+
                   // Price & Rating
                   _ProductPriceRatingSection(product: product),
                 ],

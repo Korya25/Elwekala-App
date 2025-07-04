@@ -5,7 +5,6 @@ import 'package:elwekala/features/home/presentation/widgets/product_card.dart';
 import 'package:elwekala/features/home/presentation/widgets/sliver_grid_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 
 class SliverGridProducts extends StatelessWidget {
@@ -14,12 +13,14 @@ class SliverGridProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverMasonryGrid.count(
-      crossAxisCount: 2,
-      mainAxisSpacing: 16.h,
-      crossAxisSpacing: 16.w,
-      childCount: products.length,
-      itemBuilder: (context, index) {
+    return SliverGrid(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 16.h,
+        crossAxisSpacing: 16.w,
+        childAspectRatio: 0.7,
+      ),
+      delegate: SliverChildBuilderDelegate((context, index) {
         final product = products[index];
         return SliverGridAnimation(
           productIndex: index,
@@ -34,7 +35,7 @@ class SliverGridProducts extends StatelessWidget {
             ],
           ),
         );
-      },
+      }, childCount: products.length),
     );
   }
 }
