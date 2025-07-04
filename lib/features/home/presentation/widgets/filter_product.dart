@@ -7,12 +7,12 @@ class ProductFilterOptions {
   final String? company;
 
   ProductFilterOptions({
-    required this.status,
-    required this.category,
-    required this.name,
-    required this.maxPrice,
-    required this.minPrice,
-    required this.company,
+     this.status,
+     this.category,
+     this.name,
+     this.maxPrice,
+     this.minPrice,
+     this.company,
   });
 
   ProductFilterOptions copyWith({

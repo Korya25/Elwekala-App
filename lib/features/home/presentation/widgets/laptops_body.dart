@@ -1,8 +1,11 @@
 import 'package:elwekala/core/constants/app_colors.dart';
 import 'package:elwekala/features/home/domain/entities/product.dart';
+import 'package:elwekala/features/home/presentation/controllers/get_laptops_cubit.dart';
+import 'package:elwekala/features/home/presentation/widgets/filter_product.dart';
 import 'package:elwekala/features/home/presentation/widgets/home_search_bar.dart';
 import 'package:elwekala/features/home/presentation/widgets/sliver_grid_products.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LaptopSuccessBody extends StatelessWidget {
   final List<Product> products;
@@ -22,7 +25,11 @@ class LaptopSuccessBody extends StatelessWidget {
         SliverToBoxAdapter(
           child: HomeSearchBar(
             searchController: searchController,
-            onChanged: (query) {},
+            onChanged: (query) {
+              context.read<GetLaptopsCubit>().filterLaptops(
+                ProductFilterOptions().copyWith(name: query),
+              );
+            },
           ),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 16)),
