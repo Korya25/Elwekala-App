@@ -41,6 +41,7 @@ class ApiKeys {
   static const password = 'password';
 
   static const product = 'product';
+  static const products = 'products';
   static const id = '_id';
   static const productStatus = 'status';
   static const category = 'category';

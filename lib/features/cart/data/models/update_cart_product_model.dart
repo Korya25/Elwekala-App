@@ -1,15 +1,15 @@
 import 'package:elwekala/core/api/end_points.dart';
 import 'package:elwekala/features/cart/domain/entities/update_cart_product_entity.dart';
 
-class CartProductModel extends UpdateCartProductEntity {
-  const CartProductModel({
+class UpdateCartProductModel extends UpdateCartProductEntity {
+  const UpdateCartProductModel({
     required super.product,
     required super.quantity,
     required super.totalPrice,
   });
 
-  factory CartProductModel.fromJson(Map<String, dynamic> json) {
-    return CartProductModel(
+  factory UpdateCartProductModel.fromJson(Map<String, dynamic> json) {
+    return UpdateCartProductModel(
       product: UpdateProductModel.fromJson(json[ApiKeys.product]),
       quantity: json[ApiKeys.quantity],
       totalPrice: json[ApiKeys.totalPrice],
