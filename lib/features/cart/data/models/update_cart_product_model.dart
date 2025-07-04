@@ -1,0 +1,50 @@
+import 'package:elwekala/core/api/end_points.dart';
+import 'package:elwekala/features/cart/domain/entities/update_cart_product_entity.dart';
+
+class CartProductModel extends UpdateCartProductEntity {
+  const CartProductModel({
+    required super.product,
+    required super.quantity,
+    required super.totalPrice,
+  });
+
+  factory CartProductModel.fromJson(Map<String, dynamic> json) {
+    return CartProductModel(
+      product: UpdateProductModel.fromJson(json[ApiKeys.product]),
+      quantity: json[ApiKeys.quantity],
+      totalPrice: json[ApiKeys.totalPrice],
+    );
+  }
+}
+
+class UpdateProductModel extends UpdateProductEntity {
+  const UpdateProductModel({
+    required super.id,
+    required super.status,
+    required super.category,
+    required super.name,
+    required super.price,
+    required super.description,
+    required super.image,
+    required super.images,
+    required super.company,
+    required super.countInStock,
+    required super.sales,
+  });
+
+  factory UpdateProductModel.fromJson(Map<String, dynamic> json) {
+    return UpdateProductModel(
+      id: json[ApiKeys.id],
+      status: json[ApiKeys.productStatus],
+      category: json[ApiKeys.category],
+      name: json[ApiKeys.name],
+      price: json[ApiKeys.price],
+      description: json[ApiKeys.description],
+      image: json[ApiKeys.image],
+      images: List<String>.from(json[ApiKeys.images]),
+      company: json[ApiKeys.company],
+      countInStock: json[ApiKeys.countInStock],
+      sales: json[ApiKeys.sales],
+    );
+  }
+}
