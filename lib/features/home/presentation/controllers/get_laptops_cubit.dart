@@ -30,9 +30,7 @@ class GetLaptopsCubit extends Cubit<GetLaptopsState> {
       final matchesStatus =
           filterOptions.status == null ||
           product.status == filterOptions.status;
-      final matchesCategory =
-          filterOptions.category == null ||
-          product.category == filterOptions.category;
+     
       final matchesName =
           filterOptions.name == null ||
           product.name.toLowerCase().contains(
@@ -44,16 +42,13 @@ class GetLaptopsCubit extends Cubit<GetLaptopsState> {
       final matchesMaxPrice =
           filterOptions.maxPrice == null ||
           product.price <= filterOptions.maxPrice!;
-      final matchesCompany =
-          filterOptions.company == null ||
-          product.company == filterOptions.company;
+     
 
       return matchesStatus &&
-          matchesCategory &&
           matchesName &&
           matchesMinPrice &&
-          matchesMaxPrice &&
-          matchesCompany;
+          matchesMaxPrice 
+          ;
     }).toList();
 
     emit(GetLaptopsSuccess(products: filteredProducts));

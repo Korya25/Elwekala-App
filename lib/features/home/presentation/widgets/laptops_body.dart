@@ -30,6 +30,15 @@ class LaptopSuccessBody extends StatelessWidget {
                 ProductFilterOptions().copyWith(name: query),
               );
             },
+            onFilterApplied: (filterOptions) {
+              context.read<GetLaptopsCubit>().filterLaptops(
+                ProductFilterOptions().copyWith(
+                  status: filterOptions.condition,
+                  maxPrice: filterOptions.maxPrice,
+                  minPrice: filterOptions.minPrice,
+                ),
+              );
+            },
           ),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 16)),
