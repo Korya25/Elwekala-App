@@ -4,7 +4,7 @@ import 'package:elwekala/features/home/presentation/controllers/get_laptops_stat
 import 'package:elwekala/features/home/presentation/widgets/home_app_bar.dart';
 import 'package:elwekala/features/home/presentation/widgets/laptop_failure_body.dart';
 import 'package:elwekala/features/home/presentation/widgets/laptop_loading_body.dart';
-import 'package:elwekala/features/home/presentation/widgets/laptops_body.dart';
+import 'package:elwekala/features/home/presentation/widgets/laptop_success_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

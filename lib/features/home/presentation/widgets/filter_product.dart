@@ -1,8 +1,8 @@
 class ProductFilterOptions {
   final String? status;
   final String? name;
-  final num? maxPrice;
-  final num? minPrice;
+  final double? maxPrice;
+  final double? minPrice;
 
   ProductFilterOptions({
      this.status,
@@ -15,8 +15,8 @@ class ProductFilterOptions {
     final String? status,
     final String? category,
     final String? name,
-    final num? maxPrice,
-    final num? minPrice,
+    final double? maxPrice,
+    final double? minPrice,
     final String? company,
   }) {
     return ProductFilterOptions(
