@@ -100,24 +100,4 @@ class _LaptopSuccessBodyState extends State<LaptopSuccessBody> {
   }
 }
 
-// Loading Widget
-class LaptopLoadingBody extends StatelessWidget {
-  const LaptopLoadingBody({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: CircularProgressIndicator());
-  }
-}
-
-// Failure Widget
-class LaptopFailureBody extends StatelessWidget {
-  final String errorMessage;
-
-  const LaptopFailureBody({super.key, required this.errorMessage});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Error: $errorMessage'));
-  }
-}

@@ -2,6 +2,8 @@ import 'package:elwekala/core/utils/app_dialogs.dart';
 import 'package:elwekala/features/home/presentation/controllers/get_laptops_cubit.dart';
 import 'package:elwekala/features/home/presentation/controllers/get_laptops_state.dart';
 import 'package:elwekala/features/home/presentation/widgets/home_app_bar.dart';
+import 'package:elwekala/features/home/presentation/widgets/laptop_failure_body.dart';
+import 'package:elwekala/features/home/presentation/widgets/laptop_loading_body.dart';
 import 'package:elwekala/features/home/presentation/widgets/laptops_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
