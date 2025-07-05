@@ -1,9 +1,15 @@
+import 'package:dio/dio.dart';
+import 'package:elwekala/core/api/dio_consumer.dart';
 import 'package:elwekala/core/resources/app_router.dart';
 import 'package:elwekala/core/resources/app_theme.dart';
 import 'package:elwekala/features/auth/presentation/controllers/auth_cubit.dart';
 import 'package:elwekala/features/cart/presentation/controllers/cart_cubit.dart';
 import 'package:elwekala/features/favorites/presentation/controllers/favorite_cubit.dart';
 import 'package:elwekala/features/home/presentation/controllers/get_laptops_cubit.dart';
+import 'package:elwekala/features/profile/data/data_source/profile_remote_data_source.dart';
+import 'package:elwekala/features/profile/data/repos/profile_repoimpl.dart';
+import 'package:elwekala/features/profile/domain/use_case/profile_use_case.dart';
+import 'package:elwekala/features/profile/presentation/controller/profile_cubit.dart';
 import 'package:elwekala/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +31,20 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               sl<CartCubit>()..getCart(nationalId: "01026524572123"),
+        ),
+        /*
+/*ProfileUseCase profileUseCase = ProfileUseCase(
+    ProfileRepoimpl(ProfileRemoteDataSourceImpl(DioConsumer(dio: Dio())))..getProfile(token: "20g0h4ipdafmcq5778p"),
+  );*/
+        */
+        BlocProvider(
+          create: (context) => ProfileCubit(
+            ProfileUseCase(
+              ProfileRepoimpl(
+                ProfileRemoteDataSourceImpl(DioConsumer(dio: Dio())),
+              ),
+            ),
+          )..getProfile(token: "20g0h4ipdafmcq5778p"),
         ),
       ],
 

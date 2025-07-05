@@ -1,5 +1,6 @@
 import 'package:elwekala/core/constants/app_colors.dart';
 import 'package:elwekala/core/constants/app_strings.dart';
+import 'package:elwekala/features/profile/domain/entities/profile_user_entity.dart';
 import 'package:elwekala/features/profile/presentation/widgets/circular_network_image.dart';
 import 'package:elwekala/features/profile/presentation/widgets/edit_profile_dialog.dart';
 import 'package:elwekala/features/profile/presentation/widgets/profile_title_section.dart';
@@ -8,18 +9,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfileHeaderSection extends StatelessWidget {
-  const ProfileHeaderSection({super.key});
+  final ProfileUserEntity user;
+
+  const ProfileHeaderSection({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 16.h,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // title
         ProfileTitleSection(title: AppStrings.profile),
-
-        // card
+        SizedBox(height: 16.h),
         Container(
           padding: EdgeInsets.all(20.w),
           decoration: BoxDecoration(
@@ -35,31 +35,22 @@ class ProfileHeaderSection extends StatelessWidget {
           ),
           child: Row(
             children: [
-              // Profile Image
-              const CircularNetworkImage(
-                imageUrl:
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzr9uph9Hige96UHRV93yDK8rSFMRXwvy96Q&s',
-                size: 50,
-              ),
-
+              CircularNetworkImage(imageUrl: user.profileImage, size: 50),
               SizedBox(width: 16.w),
-
-              // Profile Info
               Expanded(
                 child: _ProfileHeaderInfo(
-                  name: 'Mahmoud Mohammed',
+                  name: user.name,
                   bio: 'FEEL THE PAIN',
                 ),
               ),
-              // Edit Icon
               IconButton(
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => EditProfileDialog(),
+                    builder: (_) => EditProfileDialog(user: user),
                   );
                 },
-                icon: Icon(FontAwesomeIcons.penToSquare),
+                icon: const Icon(FontAwesomeIcons.penToSquare),
               ),
             ],
           ),

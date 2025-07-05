@@ -5,12 +5,15 @@ import 'package:elwekala/core/constants/app_strings.dart';
 import 'package:elwekala/core/utils/validators.dart';
 import 'package:elwekala/core/widgets/custom_button.dart';
 import 'package:elwekala/core/widgets/custom_text_form_field.dart';
+import 'package:elwekala/features/profile/domain/entities/profile_user_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditProfileDialog extends StatefulWidget {
-  const EditProfileDialog({super.key});
+  final ProfileUserEntity user;
+
+  const EditProfileDialog({super.key, required this.user});
 
   @override
   State<EditProfileDialog> createState() => _EditProfileDialogState();
@@ -18,14 +21,25 @@ class EditProfileDialog extends StatefulWidget {
 
 class _EditProfileDialogState extends State<EditProfileDialog> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController(text: 'Yassmine D. gold');
-  final _emailController = TextEditingController(text: 'yassmine@example.com');
-  final _phoneController = TextEditingController(text: '+1234567890');
-  final _nationalIdController = TextEditingController(text: '1234567890');
 
-  String? _selectedGender = 'Female';
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _phoneController;
+  late TextEditingController _nationalIdController;
+
+  String? _selectedGender;
   File? _selectedImage;
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(text: widget.user.name);
+    _emailController = TextEditingController(text: widget.user.email);
+    _phoneController = TextEditingController(text: widget.user.phone);
+    _nationalIdController = TextEditingController(text: widget.user.nationalId);
+    _selectedGender = widget.user.gender;
+  }
 
   @override
   void dispose() {
@@ -39,7 +53,6 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
   Future<void> _pickImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
     if (pickedFile != null) {
       setState(() {
         _selectedImage = File(pickedFile.path);
@@ -53,16 +66,16 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
         _isLoading = true;
       });
 
-      // Simulate save process
+      // Simulate save
       await Future.delayed(Duration(seconds: 1));
       if (!mounted) return;
+
       setState(() {
         _isLoading = false;
       });
 
       Navigator.of(context).pop();
 
-      // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Profile updated successfully'),
@@ -95,10 +108,10 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 IconButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  icon: Icon(Icons.close),
+                  icon: const Icon(Icons.close),
                 ),
               ],
             ),
@@ -189,7 +202,7 @@ class _EditProfileDialogState extends State<EditProfileDialog> {
                       ),
                       SizedBox(height: 16.h),
 
-                      // Gender Selection
+                      // Gender
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

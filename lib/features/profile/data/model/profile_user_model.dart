@@ -14,9 +14,9 @@ class ProfileResponseModel {
 
   factory ProfileResponseModel.fromJson(Map<String, dynamic> json) {
     return ProfileResponseModel(
-      status: json[ApiKeys.status] ?? '',
+      status: json[ApiKeys.status],
       message: json[ApiKeys.message],
-      user: ProfileUserModel.fromJson(json[ApiKeys.user] ?? {}),
+      user: ProfileUserModel.fromJson(json[ApiKeys.user]),
     );
   }
 }
@@ -34,13 +34,13 @@ class ProfileUserModel extends ProfileUserEntity {
 
   factory ProfileUserModel.fromJson(Map<String, dynamic> json) {
     return ProfileUserModel(
-      name: json[ApiKeys.name] ?? '',
-      email: json[ApiKeys.email] ?? '',
-      phone: json[ApiKeys.phone] ?? '',
-      nationalId: json[ApiKeys.nationalId] ?? '',
-      gender: json[ApiKeys.gender] ?? '',
-      profileImage: json[ApiKeys.profileImage] ?? '',
-      token: json[ApiKeys.token] ?? '',
+      name: json[ApiKeys.name],
+      email: json[ApiKeys.email],
+      phone: json[ApiKeys.phone],
+      nationalId: json[ApiKeys.nationalId],
+      gender: json[ApiKeys.gender],
+      profileImage: json[ApiKeys.profileImage],
+      token: json[ApiKeys.token],
     );
   }
 

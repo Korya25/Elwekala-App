@@ -19,7 +19,7 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
         EndPoints.getProfile,
         data: {ApiKeys.token: token},
       );
-      return ProfileUserModel.fromJson(response);
+      return ProfileUserModel.fromJson(response[ApiKeys.user]);
     } on DioException catch (e) {
       handleDioException(e);
       rethrow;
