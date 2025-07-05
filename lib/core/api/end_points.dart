@@ -14,6 +14,9 @@ class EndPoints {
   static const String addCart = '/cart/add';
   static const String deleteCart = '/cart/delete';
   static const String updateCart = '/cart';
+
+  // profile
+  static const String getProfile = '/user/profile';
 }
 
 class ApiKeys {
@@ -22,7 +25,6 @@ class ApiKeys {
   static const isAdmin = 'isAdmin';
   static const inCart = 'inCart';
   static const totalPrice = 'totalPrice';
-
 
   static const quantity = 'quantity';
 

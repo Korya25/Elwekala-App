@@ -2,8 +2,8 @@
 import 'package:elwekala/core/constants/app_colors.dart';
 import 'package:elwekala/core/constants/app_routes.dart';
 import 'package:elwekala/core/constants/app_strings.dart';
-import 'package:elwekala/features/profile/widgets/profile_menu_item.dart';
-import 'package:elwekala/features/profile/widgets/profile_title_section.dart';
+import 'package:elwekala/features/profile/presentation/widgets/profile_menu_item.dart';
+import 'package:elwekala/features/profile/presentation/widgets/profile_title_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';

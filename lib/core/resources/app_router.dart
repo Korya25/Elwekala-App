@@ -5,13 +5,13 @@ import 'package:elwekala/features/favorites/presentation/screens/favorites_scree
 import 'package:elwekala/features/home/domain/entities/product.dart';
 import 'package:elwekala/features/home/presentation/screens/home_screen.dart';
 import 'package:elwekala/features/home/presentation/screens/product_detail_screen.dart';
-import 'package:elwekala/features/profile/screens/profile_screen.dart';
+import 'package:elwekala/features/profile/presentation/screens/profile_screen.dart';
 import 'package:elwekala/features/auth/presentation/screens/register_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.home,
+    initialLocation: AppRoutes.profile,
     routes: [
       GoRoute(
         path: AppRoutes.login,
