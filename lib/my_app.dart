@@ -1,6 +1,7 @@
 import 'package:elwekala/core/resources/app_router.dart';
 import 'package:elwekala/core/resources/app_theme.dart';
 import 'package:elwekala/features/auth/presentation/controllers/auth_cubit.dart';
+import 'package:elwekala/features/cart/presentation/controllers/cart_cubit.dart';
 import 'package:elwekala/features/favorites/presentation/controllers/favorite_cubit.dart';
 import 'package:elwekala/features/home/presentation/controllers/get_laptops_cubit.dart';
 import 'package:elwekala/injection.dart';
@@ -20,6 +21,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) =>
               sl<FavoriteCubit>()..getFavorite(nationalId: "01009876567876"),
+        ),
+        BlocProvider(
+          create: (context) =>
+              sl<CartCubit>()..getCart(nationalId: "01026524572123"),
         ),
       ],
 

@@ -6,6 +6,11 @@ import 'package:elwekala/features/auth/data/repositories/auth_repository_impl.da
 import 'package:elwekala/features/auth/domain/repositories/auth_repository.dart';
 import 'package:elwekala/features/auth/domain/usecases/auth_use_case.dart';
 import 'package:elwekala/features/auth/presentation/controllers/auth_cubit.dart';
+import 'package:elwekala/features/cart/data/data_source/cart_remote_data_source.dart';
+import 'package:elwekala/features/cart/data/repo/cart_repo_impl.dart';
+import 'package:elwekala/features/cart/domain/repos/cart_repo.dart';
+import 'package:elwekala/features/cart/domain/useCase/cart_use_case.dart';
+import 'package:elwekala/features/cart/presentation/controllers/cart_cubit.dart';
 import 'package:elwekala/features/favorites/data/dataSources/favorit_remote_data_source.dart';
 import 'package:elwekala/features/favorites/data/repos/get_favorite_repo_impl.dart';
 import 'package:elwekala/features/favorites/domain/repos/favorite_repo.dart';
@@ -80,4 +85,20 @@ Future<void> init() async {
 
   // Cubit
   sl.registerFactory(() => FavoriteCubit(sl()));
+
+  // ------------------ Cart ------------------
+
+  // DataSource
+  sl.registerLazySingleton<CartRemoteDataSource>(
+    () => CartRemoteDataSourceImpl(sl()),
+  );
+
+  // Repository
+  sl.registerLazySingleton<CartRepo>(() => CartRepoImpl(sl()));
+
+  // UseCase
+  sl.registerLazySingleton(() => CartUseCase(sl()));
+
+  // Cubit
+  sl.registerFactory(() => CartCubit(sl()));
 }
