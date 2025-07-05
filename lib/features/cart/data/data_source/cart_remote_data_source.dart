@@ -15,11 +15,11 @@ abstract class CartRemoteDataSource {
     required String quantity,
   });
 
-  Future<DeletCartItemModel> deleteCart({
+  Future<List<DeletCartItemModel>> deleteCart({
     required String nationalId,
     required String productId,
   });
-  Future<UpdateProductModel> updateCart({
+  Future<UpdateCartProductModel> updateCart({
     required String nationalId,
     required String productId,
     required String quantity,
@@ -54,7 +54,7 @@ class CartRemoteDataSourceImpl extends CartRemoteDataSource {
   }
 
   @override
-  Future<DeletCartItemModel> deleteCart({
+  Future<List<DeletCartItemModel>> deleteCart({
     required String nationalId,
     required String productId,
   }) async {
@@ -63,7 +63,11 @@ class CartRemoteDataSourceImpl extends CartRemoteDataSource {
         EndPoints.deleteCart,
         data: {ApiKeys.nationalId: nationalId, ApiKeys.productId: productId},
       );
-      return DeletCartItemModel.fromJson(response);
+
+      final resualt = (response as List)
+          .map((e) => DeletCartItemModel.fromJson(e as Map<String, dynamic>))
+          .toList();
+      return resualt;
     } on DioException catch (e) {
       handleDioException(e);
       rethrow;
@@ -79,9 +83,10 @@ class CartRemoteDataSourceImpl extends CartRemoteDataSource {
         EndPoints.getCart,
         data: {ApiKeys.nationalId: nationalId},
       );
-      final List<GetCartProductModel> products = (response[ApiKeys.products])
-          .map((e) => GetCartProductModel.fromJson(e))
-          .toList();
+      final List<GetCartProductModel> products =
+          (response[ApiKeys.products] as List)
+              .map((e) => GetCartProductModel.fromJson(e))
+              .toList();
       return products;
     } on DioException catch (e) {
       handleDioException(e);
@@ -90,7 +95,7 @@ class CartRemoteDataSourceImpl extends CartRemoteDataSource {
   }
 
   @override
-  Future<UpdateProductModel> updateCart({
+  Future<UpdateCartProductModel> updateCart({
     required String nationalId,
     required String productId,
     required String quantity,
@@ -104,7 +109,9 @@ class CartRemoteDataSourceImpl extends CartRemoteDataSource {
           ApiKeys.quantity: quantity,
         },
       );
-      return UpdateProductModel.fromJson(response);
+      final updatedModel = UpdateCartProductModel.fromJson(response);
+
+      return updatedModel;
     } on DioException catch (e) {
       handleDioException(e);
       rethrow;

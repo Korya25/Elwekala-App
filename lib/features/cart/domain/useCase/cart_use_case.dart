@@ -30,7 +30,7 @@ class CartUseCase {
   }
 
   // delete
-  Future<Either<String, DeleteCartItemEntitie>> deleteCart({
+  Future<Either<String, List<DeleteCartItemEntitie>>> deleteCart({
     required String nationalId,
     required String productId,
   }) {

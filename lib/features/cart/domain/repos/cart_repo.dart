@@ -13,7 +13,7 @@ abstract class CartRepo {
     required String productId,
     required String quantity,
   });
-  Future<Either<String, DeleteCartItemEntitie>> deleteCart({
+  Future<Either<String, List<DeleteCartItemEntitie>>> deleteCart({
     required String nationalId,
     required String productId,
   });

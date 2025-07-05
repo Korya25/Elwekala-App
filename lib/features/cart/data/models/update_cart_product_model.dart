@@ -11,8 +11,8 @@ class UpdateCartProductModel extends UpdateCartProductEntity {
   factory UpdateCartProductModel.fromJson(Map<String, dynamic> json) {
     return UpdateCartProductModel(
       product: UpdateProductModel.fromJson(json[ApiKeys.product]),
-      quantity: json[ApiKeys.quantity],
-      totalPrice: json[ApiKeys.totalPrice],
+      quantity: json[ApiKeys.quantity] ?? 0,
+      totalPrice: json[ApiKeys.totalPrice] ?? 0,
     );
   }
 }
