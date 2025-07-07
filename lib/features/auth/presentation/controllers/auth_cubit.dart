@@ -6,16 +6,20 @@ class AuthCubit extends Cubit<AuthState> {
   final AuthUseCase authUseCase;
 
   AuthCubit(this.authUseCase) : super(AuthInitial());
-  void login({required String email, required String password}) async {
-    emit(AuthLoading());
+void login({required String email, required String password}) async {
+  emit(AuthLoading());
 
-    final result = await authUseCase.login(email: email, password: password);
+  final result = await authUseCase.login(email: email, password: password);
 
-    result.fold(
-      (errorMessage) => emit(AuthFailure(message: errorMessage)),
-      (user) => emit(AuthSuccess(user: user)),
-    );
-  }
+  result.fold(
+    (errorMessage) => emit(AuthFailure(message: errorMessage)),
+    (user) async {
+      await authUseCase.saveToken(user.token);
+      emit(AuthSuccess(user: user));
+    },
+  );
+}
+
 
   void register({
     required String name,
@@ -40,7 +44,10 @@ class AuthCubit extends Cubit<AuthState> {
 
     result.fold(
       (errorMessage) => emit(AuthFailure(message: errorMessage)),
-      (user) => emit(AuthSuccess(user: user)),
+      (user) async {
+      await authUseCase.saveToken(user.token); 
+      emit(AuthSuccess(user: user));
+    },
     );
   }
 }

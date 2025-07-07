@@ -6,6 +6,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit(this.useCase) : super(ProfileIntialState());
   final ProfileUseCase useCase;
   void getProfile({required String token}) async {
+    emit(ProfileGetLoadinglState());
     final result = await useCase.getProfile(token: token);
     result.fold((errorMessage) => emit(ProfileGetErrorState(errorMessage)), (
       user,

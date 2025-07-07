@@ -1,13 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:elwekala/core/errors/exceptions.dart';
+import 'package:elwekala/features/auth/data/dataSources/auth_local_data_source.dart';
 import 'package:elwekala/features/auth/data/dataSources/auth_remote_data_source.dart';
 import 'package:elwekala/features/auth/domain/entities/user_entity.dart';
 import 'package:elwekala/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;
+    final AuthLocalDataSource localDataSource;
 
-  AuthRepositoryImpl({required this.remoteDataSource});
+
+  AuthRepositoryImpl({required this.localDataSource,required this.remoteDataSource});
   @override
   Future<Either<String, UserEntity>> login({
     required String email,
@@ -46,8 +49,23 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
       return Right(model.user);
-    }  on ServerException catch (e) {
+    } on ServerException catch (e) {
       return Left(e.errorModel.message);
     }
+  }
+
+  @override
+  Future<void> saveToken(String token) async {
+    await localDataSource.cacheToken(token);
+  }
+
+  @override
+  String? getToken() {
+    return localDataSource.getCachedToken();
+  }
+
+  @override
+  Future<void> logout() async {
+    await localDataSource.clearToken();
   }
 }

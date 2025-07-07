@@ -57,7 +57,7 @@ class RegisterButton extends StatelessWidget {
               nationalId: nationalIdController.text.trim(),
               gender: selectedGender!,
               password: passwordController.text,
-              profileImage: ApiKeys.testProfileImage,
+              profileImage: ApiKeys.testProileImage,
             );
           },
         );

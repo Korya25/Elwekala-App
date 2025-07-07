@@ -34,4 +34,8 @@ class AuthUseCase {
       profileImage: profileImage,
     );
   }
+
+  Future<void> saveToken(String token) async {
+    await repository.saveToken(token);
+  }
 }

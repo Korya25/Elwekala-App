@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:elwekala/core/api/api_consumer.dart';
 import 'package:elwekala/core/api/dio_consumer.dart';
+import 'package:elwekala/core/cache/cache_helper.dart';
+import 'package:elwekala/features/auth/data/dataSources/auth_local_data_source.dart';
 import 'package:elwekala/features/auth/data/dataSources/auth_remote_data_source.dart';
 import 'package:elwekala/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:elwekala/features/auth/domain/repositories/auth_repository.dart';
@@ -41,7 +43,7 @@ Future<void> init() async {
 
   // Repository
   sl.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(remoteDataSource: sl()),
+    () => AuthRepositoryImpl(remoteDataSource: sl(), localDataSource: AuthLocalDataSourceImpl(cacheHelper: CacheHelper())),
   );
 
   // UseCases

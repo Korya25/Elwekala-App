@@ -11,7 +11,7 @@ import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.profile,
+    initialLocation: AppRoutes.login,
     routes: [
       GoRoute(
         path: AppRoutes.login,
@@ -23,6 +23,8 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.profile,
+        name: AppRoutes.profile,
+
         builder: (context, state) => ProfileScreen(),
       ),
       GoRoute(path: AppRoutes.home, builder: (context, state) => HomeScreen()),
@@ -42,7 +44,6 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.cart,
         name: AppRoutes.cart,
-
         builder: (context, state) => CartScreen(),
       ),
     ],

@@ -6,6 +6,9 @@ abstract class AuthRepository {
     required String email,
     required String password,
   });
+  Future<void> saveToken(String token);
+  String? getToken();
+  Future<void> logout();
 
   Future<Either<String, UserEntity>> register({
     required String name,
