@@ -4,7 +4,9 @@ import 'package:elwekala/features/profile/domain/entities/profile_user_entity.da
 import 'package:elwekala/features/profile/presentation/widgets/circular_network_image.dart';
 import 'package:elwekala/features/profile/presentation/widgets/edit_profile_dialog.dart';
 import 'package:elwekala/features/profile/presentation/widgets/profile_title_section.dart';
+import 'package:elwekala/features/profile/presentation/controller/profile_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -45,9 +47,13 @@ class ProfileHeaderSection extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
+                  final profileCubit = context.read<ProfileCubit>();
                   showDialog(
                     context: context,
-                    builder: (_) => EditProfileDialog(user: user),
+                    builder: (_) => BlocProvider.value(
+                      value: profileCubit,
+                      child: EditProfileDialog(user: user),
+                    ),
                   );
                 },
                 icon: const Icon(FontAwesomeIcons.penToSquare),
@@ -64,6 +70,7 @@ class _ProfileHeaderInfo extends StatelessWidget {
   const _ProfileHeaderInfo({required this.name, required this.bio});
   final String name;
   final String bio;
+
   @override
   Widget build(BuildContext context) {
     return Column(

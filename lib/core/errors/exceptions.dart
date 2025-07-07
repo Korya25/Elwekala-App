@@ -4,7 +4,7 @@ import 'package:elwekala/core/errors/error_model.dart';
 class ServerException implements Exception {
   final ErrorModel errorModel;
 
-  ServerException({required this.errorModel});
+  ServerException({required this.errorModel, required });
 }
 
 void handleDioException(DioException e) {

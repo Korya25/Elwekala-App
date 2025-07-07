@@ -17,6 +17,7 @@ class EndPoints {
 
   // profile
   static const String getProfile = '/user/profile';
+  static const String updateProfile = '/user/update';
 }
 
 class ApiKeys {
