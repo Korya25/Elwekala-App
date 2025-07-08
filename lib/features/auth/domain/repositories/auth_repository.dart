@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:elwekala/features/auth/domain/entities/user_entity.dart';
+import 'package:elwekala/core/domain/entities/user_entity.dart';
 
 abstract class AuthRepository {
   Future<Either<String, UserEntity>> login({

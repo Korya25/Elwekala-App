@@ -4,12 +4,12 @@ import 'package:elwekala/core/api/api_interpreter.dart';
 import 'package:elwekala/core/api/end_points.dart';
 import 'package:elwekala/core/errors/error_model.dart';
 import 'package:elwekala/core/errors/exceptions.dart';
-import 'package:elwekala/features/auth/data/models/login_model.dart';
-import 'package:elwekala/features/auth/data/models/register_model.dart';
+import 'package:elwekala/features/auth/data/models/auth_model.dart';
+
 
 abstract class AuthRemoteDataSource {
-  Future<LoginModel> login({required String email, required String password});
-  Future<RegisterModel> register({
+  Future<AuthModel> login({required String email, required String password});
+  Future<AuthModel> register({
     required String name,
     required String email,
     required String phone,
@@ -26,7 +26,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl({required this.apiConsumer});
 
   @override
-  Future<LoginModel> login({
+  Future<AuthModel> login({
     required String email,
     required String password,
   }) async {
@@ -41,7 +41,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       ApiInterpreter.checkResponseStatus(response);
 
       // return data
-      return LoginModel.fromJson(response);
+      return AuthModel.fromJson(response);
     } on DioException catch (e) {
       handleDioException(e);
       rethrow;
@@ -56,7 +56,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<RegisterModel> register({
+  Future<AuthModel> register({
     required String name,
     required String email,
     required String phone,
@@ -84,7 +84,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       ApiInterpreter.checkResponseStatus(response);
 
       // return data
-      return RegisterModel.fromJson(response);
+      return AuthModel.fromJson(response);
     } on DioException catch (e) {
       handleDioException(e);
       rethrow;

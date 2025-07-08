@@ -3,20 +3,20 @@ import 'package:elwekala/features/cart/domain/entities/add_cart_entite.dart';
 
 class AddToCartResponse {
   final String message;
-  final UserModel user;
+  final AddCartUserModel user;
 
   const AddToCartResponse({required this.message, required this.user});
 
   factory AddToCartResponse.fromJson(Map<String, dynamic> json) {
     return AddToCartResponse(
       message: json[ApiKeys.message],
-      user: UserModel.fromJson(json[ApiKeys.user]),
+      user: AddCartUserModel.fromJson(json[ApiKeys.user]),
     );
   }
 }
 
-class UserModel extends AddCartUserEntity {
-  const UserModel({
+class AddCartUserModel extends AddCartUserEntity {
+  const AddCartUserModel({
     required super.id,
     required super.name,
     required super.email,
@@ -30,8 +30,8 @@ class UserModel extends AddCartUserEntity {
     required super.favoriteProducts,
     required super.inCart,
   });
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
+  factory AddCartUserModel.fromJson(Map<String, dynamic> json) {
+    return AddCartUserModel(
       id: json[ApiKeys.id],
       name: json[ApiKeys.name],
       email: json[ApiKeys.email],
