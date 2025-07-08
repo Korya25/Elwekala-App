@@ -4,60 +4,51 @@ import 'package:elwekala/core/errors/error_model.dart';
 class ServerException implements Exception {
   final ErrorModel errorModel;
 
-  ServerException({required this.errorModel, required });
+  ServerException({required this.errorModel});
+
+  @override
+  String toString() => errorModel.message;
 }
 
 void handleDioException(DioException e) {
-  switch (e.type) {
+  ErrorModel errorModel;
+  
+  if (e.response != null && e.response!.data != null) {
+    try {
+      errorModel = ErrorModel.fromJson(e.response!.data);
+    } catch (_) {
+      errorModel = ErrorModel(
+        status: 'error',
+        message: e.message ?? 'Unknown Dio error',
+      );
+    }
+  } else {
+    errorModel = ErrorModel(
+      status: 'error',
+      message: _getDefaultMessageForDioException(e.type),
+    );
+  }
+  
+  throw ServerException(errorModel: errorModel);
+}
+
+String _getDefaultMessageForDioException(DioExceptionType type) {
+  switch (type) {
     case DioExceptionType.connectionTimeout:
-      throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
+      return 'Connection timeout';
     case DioExceptionType.sendTimeout:
-      throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
-
+      return 'Send timeout';
     case DioExceptionType.receiveTimeout:
-      throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
-
+      return 'Receive timeout';
     case DioExceptionType.badCertificate:
-      throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
-
+      return 'Bad certificate';
     case DioExceptionType.cancel:
-      throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
-
+      return 'Request canceled';
     case DioExceptionType.connectionError:
-      throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
-
+      return 'Connection error';
     case DioExceptionType.unknown:
-      throw ServerException(errorModel: ErrorModel.fromJson(e.response!.data));
+      return 'Unknown error';
     case DioExceptionType.badResponse:
-      switch (e.response?.statusCode) {
-        case 400:
-          throw ServerException(
-            errorModel: ErrorModel.fromJson(e.response!.data),
-          ); // Bad request
-        case 401:
-          throw ServerException(
-            errorModel: ErrorModel.fromJson(e.response!.data),
-          ); // Unauthorized
-        case 403:
-          throw ServerException(
-            errorModel: ErrorModel.fromJson(e.response!.data),
-          ); // Forbidden
-        case 404:
-          throw ServerException(
-            errorModel: ErrorModel.fromJson(e.response!.data),
-          ); // Not found
-        case 409:
-          throw ServerException(
-            errorModel: ErrorModel.fromJson(e.response!.data),
-          ); // Conflict
-        case 422:
-          throw ServerException(
-            errorModel: ErrorModel.fromJson(e.response!.data),
-          ); // Unprocessable entity
-        case 504:
-          throw ServerException(
-            errorModel: ErrorModel.fromJson(e.response!.data),
-          ); // Gateway timeout
-      }
+      return 'Bad server response';
   }
 }

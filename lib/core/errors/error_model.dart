@@ -1,14 +1,14 @@
 import 'package:elwekala/core/api/end_points.dart';
 
 class ErrorModel {
-  final int status;
+  final dynamic status;
   final String message;
 
-  ErrorModel({required this.status, required this.message});
+  ErrorModel({this.status, required this.message,});
   factory ErrorModel.fromJson(Map<String, dynamic> json) {
     return ErrorModel(
-      status: json[ApiKeys.status],
-      message: json[ApiKeys.message],
+      status: json[ApiKeys.status].toString(),
+      message: json[ApiKeys.message].toString() 
     );
   }
 }

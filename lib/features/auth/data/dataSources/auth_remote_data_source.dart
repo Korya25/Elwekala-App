@@ -48,7 +48,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     } catch (e) {
       throw ServerException(
         errorModel: ErrorModel(
-          status: 200,
+          status: 'error',
           message: e.toString().replaceAll('Exception: ', ''),
         ),
       );
@@ -91,7 +91,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     } catch (e) {
       throw ServerException(
         errorModel: ErrorModel(
-          status: 200,
+          status: 'error',
           message: e.toString().replaceAll('Exception: ', ''),
         ),
       );
