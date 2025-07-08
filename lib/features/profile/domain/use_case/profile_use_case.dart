@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:elwekala/features/profile/domain/entities/profile_user_entity.dart';
+import 'package:elwekala/core/domain/entities/user_entity.dart';
 import 'package:elwekala/features/profile/domain/entities/update_profile_data.dart';
 import 'package:elwekala/features/profile/domain/repo/profile_repo.dart';
 
@@ -8,7 +8,7 @@ class ProfileUseCase {
 
   ProfileUseCase(this.repo);
 
-  Future<Either<String, ProfileUserEntity>> getProfile({
+  Future<Either<String, UserEntity>> getProfile({
     required String token,
   }) async {
     return repo.getProfile(token: token);

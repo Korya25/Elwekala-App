@@ -1,6 +1,6 @@
 import 'package:elwekala/core/constants/app_colors.dart';
 import 'package:elwekala/core/constants/app_strings.dart';
-import 'package:elwekala/features/profile/domain/entities/profile_user_entity.dart';
+import 'package:elwekala/core/domain/entities/user_entity.dart';
 import 'package:elwekala/features/profile/presentation/widgets/circular_network_image.dart';
 import 'package:elwekala/features/profile/presentation/widgets/edit_profile_dialog.dart';
 import 'package:elwekala/features/profile/presentation/widgets/profile_title_section.dart';
@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfileHeaderSection extends StatelessWidget {
-  final ProfileUserEntity user;
+  final UserEntity user;
 
   const ProfileHeaderSection({super.key, required this.user});
 

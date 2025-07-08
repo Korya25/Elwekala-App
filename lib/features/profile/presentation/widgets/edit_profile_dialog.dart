@@ -4,10 +4,10 @@ import 'package:elwekala/core/cache/cache_helper.dart';
 import 'package:elwekala/core/cache/cache_keys.dart';
 import 'package:elwekala/core/constants/app_colors.dart';
 import 'package:elwekala/core/constants/app_strings.dart';
+import 'package:elwekala/core/domain/entities/user_entity.dart';
 import 'package:elwekala/core/utils/validators.dart';
 import 'package:elwekala/core/widgets/custom_button.dart';
 import 'package:elwekala/core/widgets/custom_text_form_field.dart';
-import 'package:elwekala/features/profile/domain/entities/profile_user_entity.dart';
 import 'package:elwekala/features/profile/presentation/controller/profile_cubit.dart';
 import 'package:elwekala/features/profile/presentation/controller/profile_state.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditProfileDialog extends StatefulWidget {
-  final ProfileUserEntity user;
+  final UserEntity user;
 
   const EditProfileDialog({super.key, required this.user});
 

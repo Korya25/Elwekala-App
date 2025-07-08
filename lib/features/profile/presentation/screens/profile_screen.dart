@@ -3,9 +3,9 @@ import 'package:elwekala/core/api/dio_consumer.dart';
 import 'package:elwekala/core/cache/cache_helper.dart';
 import 'package:elwekala/core/cache/cache_keys.dart';
 import 'package:elwekala/core/constants/app_strings.dart';
+import 'package:elwekala/core/domain/entities/user_entity.dart';
 import 'package:elwekala/features/profile/data/data_source/profile_remote_data_source.dart';
 import 'package:elwekala/features/profile/data/repos/profile_repoimpl.dart';
-import 'package:elwekala/features/profile/domain/entities/profile_user_entity.dart';
 import 'package:elwekala/features/profile/domain/use_case/profile_use_case.dart';
 import 'package:elwekala/features/profile/presentation/widgets/profile_account_section.dart';
 import 'package:elwekala/features/profile/presentation/widgets/profile_header.dart';
@@ -78,7 +78,7 @@ class ProfileScreen extends StatelessWidget {
 }
 
 class _ProfileScreenBody extends StatelessWidget {
-  final ProfileUserEntity user;
+  final UserEntity user;
 
   const _ProfileScreenBody({required this.user});
 

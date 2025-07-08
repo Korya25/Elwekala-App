@@ -1,4 +1,4 @@
-import 'package:elwekala/features/profile/domain/entities/profile_user_entity.dart';
+import 'package:elwekala/core/domain/entities/user_entity.dart';
 import 'package:elwekala/features/profile/domain/entities/update_profile_data.dart';
 
 abstract class ProfileState {}
@@ -8,7 +8,7 @@ class ProfileIntialState extends ProfileState {}
 class ProfileGetLoadinglState extends ProfileState {}
 
 class ProfileGetSucessState extends ProfileState {
-  final ProfileUserEntity profileUserEntity;
+  final UserEntity profileUserEntity;
 
   ProfileGetSucessState(this.profileUserEntity);
 }

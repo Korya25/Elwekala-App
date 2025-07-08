@@ -3,12 +3,12 @@ import 'package:elwekala/core/api/api_consumer.dart';
 import 'package:elwekala/core/api/end_points.dart';
 import 'package:elwekala/core/cache/cache_helper.dart';
 import 'package:elwekala/core/cache/cache_keys.dart';
+import 'package:elwekala/core/data/models/user_model.dart';
 import 'package:elwekala/core/errors/exceptions.dart';
-import 'package:elwekala/features/profile/data/model/profile_user_model.dart';
 import 'package:elwekala/features/profile/data/model/update_profile_data_model.dart';
 
 abstract class ProfileRemoteDataSource {
-  Future<ProfileUserModel> getProfile({required String token});
+  Future<UserModel> getProfile({required String token});
 
   Future<UpdateProfileDataModel> updateProfile({
     required String token,
@@ -26,13 +26,13 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
   ProfileRemoteDataSourceImpl(this.apiConsumer);
 
   @override
-  Future<ProfileUserModel> getProfile({required String token}) async {
+  Future<UserModel> getProfile({required String token}) async {
     try {
       final response = await apiConsumer.post(
         EndPoints.getProfile,
         data: {ApiKeys.token: token},
       );
-      return ProfileUserModel.fromJson(response[ApiKeys.user]);
+      return UserModel.fromJson(response[ApiKeys.user]);
     } on DioException catch (e) {
       handleDioException(e);
       rethrow;
