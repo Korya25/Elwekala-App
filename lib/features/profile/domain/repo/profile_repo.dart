@@ -13,4 +13,9 @@ abstract class ProfileRepo {
     required String gender,
     required String password,
   });
+
+  Future<Either<String, String>> deleteProfile({
+    required String token,
+    required String email,
+  });
 }

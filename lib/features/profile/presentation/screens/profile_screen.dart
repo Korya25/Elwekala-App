@@ -91,7 +91,7 @@ class _ProfileScreenBody extends StatelessWidget {
         children: [
           ProfileHeaderSection(user: user),
           const ProfileAccountSection(),
-          const ProfileSettingsSection(),
+          ProfileSettingsSection(user: user),
         ],
       ),
     );

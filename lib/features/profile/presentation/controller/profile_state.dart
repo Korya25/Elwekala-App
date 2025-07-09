@@ -30,3 +30,15 @@ class ProfileUpdateErrorState extends ProfileState {
 
   ProfileUpdateErrorState(this.error);
 }
+class ProfileDeleteSuccessState extends ProfileState {
+  final String message;
+
+  ProfileDeleteSuccessState(this.message);
+}
+class ProfileDeleteLoadingState extends ProfileState {}
+
+class ProfileDeleteErrorState extends ProfileState {
+  final String error;
+
+  ProfileDeleteErrorState(this.error);
+}

@@ -47,4 +47,13 @@ class ProfileCubit extends Cubit<ProfileState> {
       );
     });
   }
+
+  void deleteProfile({required String token, required String email}) async {
+    emit(ProfileDeleteLoadingState());
+    final result = await useCase.deleteProfile(token: token, email: email);
+    result.fold(
+      (errorMessage) => emit(ProfileDeleteErrorState(errorMessage)),
+      (message) => emit(ProfileDeleteSuccessState(message)),
+    );
+  }
 }

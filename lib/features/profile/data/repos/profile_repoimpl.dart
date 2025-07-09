@@ -44,4 +44,14 @@ class ProfileRepoimpl extends ProfileRepo {
       return Left(e.errorModel.message);
     }
   }
+  
+  @override
+  Future<Either<String, String>> deleteProfile({required String token, required String email}) async {
+    try {
+      final model = await profileRemoteDataSource.deleteProfile(token: token, email: email);
+      return Right(model);
+    } on ServerException catch (e) {
+      return Left(e.errorModel.message);
+    }
+  }
 }

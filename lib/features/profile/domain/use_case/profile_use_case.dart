@@ -8,9 +8,7 @@ class ProfileUseCase {
 
   ProfileUseCase(this.repo);
 
-  Future<Either<String, UserEntity>> getProfile({
-    required String token,
-  }) async {
+  Future<Either<String, UserEntity>> getProfile({required String token}) async {
     return repo.getProfile(token: token);
   }
 
@@ -31,5 +29,11 @@ class ProfileUseCase {
       password: password,
     );
   }
-}
 
+  Future<Either<String, String>> deleteProfile({
+    required String token,
+    required String email,
+  }) async {
+    return repo.deleteProfile(token: token, email: email);
+  }
+}
